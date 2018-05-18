@@ -21,6 +21,12 @@
 	<div class="row">
 		<div class="col-8">
 			<div id="rules">
+				<h2>
+					{% if lang == 'en' %}Rules{% endif %}
+					{% if lang == 'es' %}Reglas{% endif %}
+					{% if lang == 'pt' %}Regras{% endif %}
+				</h2>
+				<hr>
 				<h4 class="text-danger"><img src="/static/img/exit.png" class="img-inline inline-block" />
 					{% if lang == 'en' %}Play rounds until completion. {% endif %}
 					{% if lang == 'es' %}Jugá las partidas hasta el final. {% endif %}
@@ -61,7 +67,7 @@
 			</div>
 		</div>
 		<div class="col-4">
-		<iframe src="https://discordapp.com/widget?id=382346001496670209&theme=dark" width="100%" height="342" allowtransparency="true" frameborder="0" name="discord"></iframe>
+		<iframe src="https://discordapp.com/widget?id=382346001496670209&theme=dark" width="100%" height="411" allowtransparency="true" frameborder="0" name="discord"></iframe>
 		</div>
 	</div>
 	
@@ -79,7 +85,7 @@
 
 			{% if lang == 'en' %}
 			<p class="card-text"><b>In order to play in this server your hive skill must be above 500.</b></p>
-			<p class="card-text">You can ask an admin to grant you access, but please <span class="text-danger">consider this is not a rookie server.</span> You will probably have a high ping here, and, although most of us speak English it isn't our first language so don't expect players to teach you the ropes of the game as they go.
+			<p class="card-text">You can ask an admin to grant you access, but please <span class="text-danger">consider this is not a rookie server.</span> You will probably have a high ping here, and although most of us speak English it isn't our first language, so don't expect players to teach you the ropes of the game as they go.
 			
 			Please consider doing the game's tutorials, practicing on the Skulk Challenge or joining a different server in the meantime.</p>
 		  	{% endif %}
@@ -97,7 +103,13 @@
 		  	{% endif %}
 		  </div>
 	</div>
-	
+
+  <hr>
+	  <div class="text-center">
+		{% if lang == 'en' %}If you don't want to see this again, type <b>!acceptmotd</b> in chat.{% endif %}
+		{% if lang == 'es' %}Para no volver a ver esto, escribí <b>!acceptmotd</b> en el chat {% endif %}
+		{% if lang == 'pt' %}Se não quiser ver essa mensagem de novo, escreva <b>!acceptmotd</b> no chat.{% endif %}
+	  </div>
   </div>
 
     <!-- Optional JavaScript -->
