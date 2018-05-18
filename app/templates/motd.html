@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="/static/css/style.css">
+
+    <title>Server MOTD</title>
+  </head>
+  <body>
+  <div class="container">
+
+	<hr />
+    <h1>NS2 Sudamerica 8v8 {{lang}}</h1>
+	<hr />
+	<div class="row">
+		<div class="col-8">
+			<div id="rules">
+				<h4 class="text-danger"><img src="/static/img/exit.png" class="img-inline inline-block" />
+					{% if lang == 'en' %}Don't quit midgame. {% endif %}
+					{% if lang == 'es' %}No salgas en mitad de un partido. {% endif %}
+					{% if lang == 'pt' %}{% endif %}
+				</h4>
+				<p>
+					{% if lang == 'en' %}Quitting midgame is a bannable offense here. If you have technical issues please rejoin as soon as you can or tell us what happened.{% endif %}
+				    {% if lang == 'es' %}Salir en mitad de un partido suele ser suficiente motivo de ban. Si tuviste un problema tratá de reconectarte lo antes posible, y si no avisanos. {% endif %}
+					{% if lang == 'pt' %}{% endif %}
+				</p>
+				
+				
+				<h4 class="text-danger"><img src="/static/img/t.png" class="img-inline inline-block" />
+					{% if lang == 'en' %}Don't shit talk.{% endif %}
+					{% if lang == 'es' %}No te hagas el poronga.{% endif %}
+					{% if lang == 'pt' %}{% endif %}
+				</h4>
+				<p>
+					{% if lang == 'en' %}Even if you're doing it in a tongue in cheek manner, we don't care.{% endif %}
+					{% if lang == 'es' %}Sea en joda o no, no nos importa.{% endif %}
+					{% if lang == 'pt' %}{% endif %}
+				</p>
+				
+				<h4 class="text-warning"><img src="/static/img/balance.png" class="img-inline inline-block" />
+
+					{% if lang == 'en' %}We enforce even matches.{% endif %}
+					{% if lang == 'es' %}No desbalancees.{% endif %}
+					{% if lang == 'pt' %}{% endif %}
+
+					</h4>
+				<p>
+					{% if lang == 'en' %}For example, if you see the current player count as 7v7, please spectate for a while and don't join to make it 8v7.{% endif %}
+
+					{% if lang == 'es' %}Si por ejemplo ves que la cantidad de jugadores está 7v7, por favor no entres a hacerlo 8v7, quedate de espectador un rato hasta que arranque la próxima.{% endif %}
+
+					{% if lang == 'pt' %}{% endif %}
+				</p>
+			</div>
+		</div>
+		<div class="col-4">
+		<iframe src="https://discordapp.com/widget?id=382346001496670209&theme=dark" width="100%" height="342" allowtransparency="true" frameborder="0" name="discord"></iframe>
+		</div>
+	</div>
+	
+	
+	
+	<hr />
+	
+	<div class="card mb-3">
+		  <h3 class="card-header"><img src="/static/img/warning.png" class="img-inline inline-block" />
+			  {% if lang == 'en' %}I can't join any team!{% endif %}
+			  {% if lang == 'es' %}No me deja entrar a ningún equipo!{% endif %}
+		  </h3>
+		  <div class="card-body">
+
+			{% if lang == 'en' %}
+			<p class="card-text"><b>In order to play in this server your hive skill must be above 500.</b></p>
+			<p class="card-text">You can ask an admin to grant you access, but please <span class="text-danger">consider this is not a rookie server.</span> You will probably have high ping here, and although we can speak english it isn't our main language so don't expect us to teach you the ropes of the game.
+			
+			Please consider joining another server in the meantime.</p>
+		  	{% endif %}
+
+		    {% if lang == 'es' %}
+			<p class="card-text"><b>El servidor está configurado para requerir un mínimo de 500 hive skill.</b></p>
+			<p class="card-text">Si no lo tenés o ni sabés que es, no importa. Preguntale a alguno de los admins jugando para que te de acceso.</p>
+			<p class="card-text">Considerá usar microfono cuando jugás, y entrar a nuestro Discord para enterarte cuando armamos.</p>
+		  	{% endif %}
+
+		    {% if lang == 'pt' %}
+			<p class="card-text"><b>El servidor está configurado para requerir un mínimo de 500 hive skill.</b></p>
+			<p class="card-text">Si no lo tenés o ni sabés que es, no importa. Preguntale a alguno de los admins jugando para que te de acceso.</p>
+			<p class="card-text">Considerá usar microfono cuando jugás, y entrar a nuestro Discord para enterarte cuando armamos.</p>
+		  	{% endif %}
+		  </div>
+	</div>
+	
+  </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
