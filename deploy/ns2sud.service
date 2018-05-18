@@ -1,0 +1,10 @@
+[Unit]
+Description=uWSGI instance to serve ns2sud-web
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/ns2sud-web
+Environment="PATH=/home/ubuntu/ns2sud-web/venv/bin"
+ExecStart=/home/ubuntu/ns2sud-web/venv/bin/uwsgi --ini app.ini
