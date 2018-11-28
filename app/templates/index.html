@@ -1,0 +1,223 @@
+{% set has_loading = True %}
+{% extends "master_template.html" %}
+{% block title %}Index{% endblock %}
+{% block content %}
+{% endblock %}
+{% block before_footer %}
+<div id="index-scroll-wrapper">
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <h1 class="title is-size-4 border-bottom"><span class="icon is-medium">
+              <i class="fas fa-history"></i>
+            </span>
+            Last matches</h1>
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Format</th>
+                <th>Map</th>
+                <th>Winner</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th><a href="#">2158</a></th>
+                <td>10/23/2018 23:11</td>
+                <td>8v8</td>
+                <td>ns2_veil</td>
+                <td>Khaara</td>
+                <td>23:12</td>
+              </tr>
+              <tr>
+                <th><a href="#">2158</a></th>
+                <td>10/23/2018 23:11</td>
+                <td>8v8</td>
+                <td>ns2_veil</td>
+                <td>Khaara</td>
+                <td>23:12</td>
+              </tr>
+              <tr>
+                <th><a href="#">2158</a></th>
+                <td>10/23/2018 23:11</td>
+                <td>8v8</td>
+                <td>ns2_veil</td>
+                <td>Khaara</td>
+                <td>23:12</td>
+              </tr>
+              <tr>
+                <th><a href="#">2158</a></th>
+                <td>10/23/2018 23:11</td>
+                <td>8v8</td>
+                <td>ns2_veil</td>
+                <td>Khaara</td>
+                <td>23:12</td>
+              </tr>
+              <tr>
+                <th><a href="#">2158</a></th>
+                <td>10/23/2018 23:11</td>
+                <td>8v8</td>
+                <td>ns2_veil</td>
+                <td>Khaara</td>
+                <td>23:12</td>
+              </tr>
+              <tr>
+                <th><a href="#">2158</a></th>
+                <td>10/23/2018 23:11</td>
+                <td>8v8</td>
+                <td>ns2_veil</td>
+                <td>Khaara</td>
+                <td>23:12</td>
+              </tr>
+              <tr>
+                <th><a href="#">2158</a></th>
+                <td>10/23/2018 23:11</td>
+                <td>8v8</td>
+                <td>ns2_veil</td>
+                <td>Khaara</td>
+                <td>23:12</td>
+              </tr>
+              <tr>
+                <th><a href="#">2158</a></th>
+                <td>10/23/2018 23:11</td>
+                <td>8v8</td>
+                <td>ns2_veil</td>
+                <td>Khaara</td>
+                <td>23:12</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="column">
+          <h1 class="title is-size-4 border-bottom"><span class="icon is-medium">
+              <i class="fas fa-server"></i>
+            </span>
+            {% if gameserver.status %}
+            <a href="steam://run/4920//+connect 185.50.104.80:27015">NS2 Sudamerica 8v8 (high tick -
+              i3D.net)</a>
+            {% else %}
+            NS2 Sudamerica 8v8 (high tick - i3D.net)
+            {% endif %}
+          </h1>
+          <nav class="level is-mobile">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Status</p>
+                <p class="title is-size-4"><span class="icon is-small has-text-{% if gameserver.status %}success{% else %}danger{% endif %}">
+                    <i class="fas fa-circle"></i>
+                  </span></p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Map</p>
+                <p class="title is-size-4">{% if gameserver.status %}{{ gameserver.map }}{% else %}---{%
+                  endif %}</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Slots</p>
+                <p class="title is-size-4">{% if gameserver.status %}{{ gameserver.slots }}{% else
+                  %}---{% endif %}</p>
+              </div>
+            </div>
+          </nav>
+          <hr>
+          <h1 class="is-size-4">Matches</h1>
+          <div>
+            <canvas id="matches-chart" width="100%" height="100"></canvas>
+          </div>
+
+          <h1 class="is-size-4">New players</h1>
+          <div>
+            <canvas id="new-players-chart" width="100%" height="100"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+{% block prefooter %}
+<div id="rules" class="is-hidden-touch">
+  <div id="blackboard">
+    <h1 class="is-size-2">Server rules</h1>
+    <ol class="is-size-3">
+      <li>Don't be a dick</li>
+      <li>Don't quit midgame</li>
+      <li>Keep the player count balanced</li>
+    </ol>
+  </div>
+  <div id="waifu"></div>
+  <div id="students"></div>
+  <div class="is-clearfix"></div>
+</div>
+{% endblock %}
+{% block include_js %}
+<script src="/static/js/index_animations.js"></script>
+<script>
+  axios.get("/stats/global/json/matches_week")
+    .then(function (response) {
+      var chart_data = response.data;
+      var ctx = document.getElementById("matches-chart").getContext('2d');
+      var winrate = new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: 'Matches',
+            data: chart_data,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [{
+              type: 'time'
+            }]
+          },
+          legend: {
+            display: false
+          }
+        }
+      });
+    })
+
+  axios.get("/stats/global/json/new_players")
+    .then(function (response) {
+      var chart_data = response.data;
+      var ctx = document.getElementById("new-players-chart").getContext('2d');
+      var winrate = new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: 'New players',
+            data: chart_data,
+            backgroundColor: 'rgba(192, 149, 75, 0.2)',
+            borderColor: 'rgba(192, 149, 75, 1)',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [{
+              type: 'time'
+            }]
+          },
+          legend: {
+            display: false
+          }
+        }
+      });
+    })
+
+</script>
+{% endblock %}

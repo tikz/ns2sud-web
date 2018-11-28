@@ -7,7 +7,11 @@ test*
 serverlogs/
 serverlogs/*
 local/*
+*notes*
+helper_*.py
+.sass-cache
 
+*private*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -118,6 +122,7 @@ venv.bak/
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
+.vscode/
 .idea/
 .idea/**/workspace.xml
 .idea/**/tasks.xml

@@ -1,0 +1,439 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower:400,700');
+
+$grey-dark: rgb(34, 34, 34);
+// $grey: #435156;
+$grey: #363636;
+$cyan: #1EB4FF;
+$green: #A4F226;
+$orange: #FFB728;
+$white: #e9e9e9;
+$grey-border: #444;
+
+$title-weight: 500;
+// Update Bulma's global variables
+$family-sans-serif: "Nunito", sans-serif;
+$primary: $cyan;
+$widescreen-enabled: true;
+$fullhd-enabled: false;
+
+$link: $cyan;
+$link-hover: $cyan;
+$text-strong: #fff;
+$title-color: $white;
+$subtitle-color: $white;
+$table-color: $white;
+$table-cell-heading-color: #f00;
+
+$table-background-color: $grey-dark;
+
+// Update some of Bulma's component variables
+$body-color: $white;
+$body-background-color: $grey-dark;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+$table-cell-border: 1px solid $grey-border;
+
+$navbar-dropdown-background-color: hsl(0, 0%, 29%);
+$navbar-item-color: $white;
+$navbar-dropdown-item-hover-color: $white;
+$navbar-dropdown-item-hover-background-color: $grey-dark;
+$navbar-background-color: hsl(0, 0%, 29%);
+
+$border: #383838;
+$tabs-toggle-link-hover-background-color: $grey;
+
+$pagination-border-color: $border;
+$pagination-color: $white;
+
+$input-color: $white;
+$input-background-color: $grey-dark;
+$input-icon-color: $border;
+$input-icon-active-color: $grey;
+
+$tooltip-max-width: 300px;
+
+@import "../bulma/sass/utilities/_all.sass";
+@import "../bulma/sass/base/_all.sass";
+@import "../bulma/sass/grid/columns.sass";
+@import "../bulma/sass/elements/box.sass";
+@import "../bulma/sass/elements/button.sass";
+@import "../bulma/sass/elements/container.sass";
+@import "../bulma/sass/elements/progress.sass";
+@import "../bulma/sass/elements/form.sass";
+@import "../bulma/sass/elements/title.sass";
+@import "../bulma/sass/elements/image.sass";
+@import "../bulma/sass/elements/icon.sass";
+@import "../bulma/sass/elements/table.sass";
+@import "../bulma/sass/components/navbar.sass";
+@import "../bulma/sass/components/level.sass";
+@import "../bulma/sass/components/tabs.sass";
+@import "../bulma/sass/components/pagination.sass";
+@import "../bulma/sass/layout/_all.sass";
+@import "../bulma/sass/grid/_all.sass";
+@import "../bulma/sass/ext/bulma-tooltip.sass";
+@import "../bulma/sass/ext/bulma-switch.sass";
+
+
+
+html {
+height: 100%;
+}
+
+#wrap {
+//padding-bottom: 100px;
+overflow: hidden;
+flex: 1 0 auto;
+}
+
+body {
+position: relative;
+margin: 0;
+min-height: 100%;
+background-color: #000;
+background: url(/static/img/bg.jpg) no-repeat center top;
+background-size:     cover;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+}
+
+div.navbar-wrapper {
+padding-top: 64px;
+}
+#main-navbar {
+max-width: 1200px;
+margin: 0 auto;
+border: solid 1px $grey-border;
+box-shadow: 3px 3px black;
+}
+
+.navbar-dropdown {
+box-shadow: 3px 3px black;
+}
+
+.navbar-item img {
+max-height: 48px;
+}
+
+.navbar-item figure {
+margin-right: 5px;
+}
+
+.table {
+border: solid 1px $grey-border;
+}
+
+.footer {
+background-color: transparent !important;
+background-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1));
+pointer-events: none;
+flex-shrink: 0;
+padding: 0;
+}
+
+.footer .container {
+pointer-events: all;
+z-index: 3;
+margin-top: -48px;
+}
+
+.footer .level-left {
+  padding-top: 15px;
+  }
+
+
+a.colorless {
+color:inherit;
+}
+a.colorless:hover {
+color:$grey-light;
+}
+
+.border-bottom {
+border-bottom: solid 1px $grey-border;
+padding-bottom: 0.5rem;
+}
+
+#black {
+position: absolute;
+width: 100%;
+height: 100%;
+background-color: #000;
+opacity: 1;
+}
+
+.nightmare-babbler {
+position: absolute;
+width: 100%;
+height: 100%;
+background: url(/static/img/nightmare-babbler.png) no-repeat bottom right;
+animation: glitch1 2.5s infinite;
+}
+
+#discord {
+width: 290px;
+height: 184px;
+background: url(/static/img/discord.png) no-repeat;
+position: absolute;
+top: -55px;
+}
+
+#discord a {
+  display: block;
+  width: 68px;
+  height: 75px;
+  position: absolute;
+  top: 48px;
+  left: 134px;
+  z-index: 2;
+}
+
+#discord-glow {
+width: 290px;
+height: 184px;
+background: url(/static/img/discord-glow.png) no-repeat;
+opacity: 0.5;
+mix-blend-mode: hard-light;
+}
+
+#graph_chart .link {
+stroke: #009dff;
+opacity:0.2;
+mix-blend-mode: hard-light;
+}
+
+#graph_chart .node text {
+fill:#6a9fba;
+cursor:pointer;
+mix-blend-mode: screen;
+}
+
+#graph_chart .node circle {
+stroke:#fff;
+stroke-width:2px;
+fill:#56c6ff;
+}
+
+#graph_chart {
+position: absolute;
+left: 0px;
+right: 0px;
+top: 0px;
+bottom: 0px;
+background-color: rgba(0, 0, 0, 0.3);
+padding: 0px;
+}
+
+#hero-graph .hero-foot {
+pointer-events: none;
+margin-bottom: 75px;
+}
+
+#hero-graph .hero-foot h1 {
+text-shadow: 4px 4px #000;
+}
+
+#hero-graph .hero-foot h2 {
+text-shadow: 2px 2px #000;
+}
+
+#hero-graph .hero-foot h1 {
+font-size: 5rem;
+}
+#hero-graph .hero-foot h2 {
+color: #999;
+}
+
+.tabs a {
+background-color: $grey-dark;
+color: $white;
+}
+
+.pagination a {
+background-color: $grey-dark;
+}
+
+.full-height {
+height: 100%;
+}
+
+hr {
+background-color: $border;
+height: 1px;
+}
+
+.is-loading {
+position: relative;
+pointer-events: none;
+opacity: 0.5;
+&:after {
+@include loader;
+position: absolute;
+top: calc(50% - 2.5em);
+left: calc(50% - 2.5em);
+width: 5em;
+height: 5em;
+border-width: 0.25em;
+}
+}
+
+#statsContainer {
+min-height: 700px;
+}
+
+.navbar-item.has-dropdown a.navbar-link {
+cursor: default;
+}
+
+#rules {
+position:relative;
+width: 1030px;
+height: 525px;
+margin: 0 auto;
+}
+
+#index-scroll-wrapper {
+  position:relative;
+}
+
+#blackboard {
+font-family: "Indie Flower", sans-serif;
+height: 250px;
+float: right;
+background-color: #000;
+display: block;
+width: 600px;
+padding-top: 20px;
+padding-left: 25px;
+background: url(/static/img/blackboard.jpg) no-repeat;
+background-size: cover;
+box-shadow: #000 5px 5px 30px;
+border-radius: 7px;
+border: solid 3px #2a2f35;
+margin-right: 50px;
+}
+
+#blackboard ol {
+  margin-left: 55px;
+}
+
+#blackboard ol, #blackboard h1 {
+  opacity: 0.8;
+}
+
+#waifu {
+position: absolute;
+width: 100%;
+height: 100%;
+background: url(/static/img/waifu.png) no-repeat;
+background-size:     cover;
+}
+
+#students {
+position: absolute;
+width: 100%;
+height: 100%;
+background: url(/static/img/students.png) no-repeat;
+background-size:     cover;
+}
+
+#loading {
+background-color: #232830;
+position: fixed;
+width: 100%;
+height: 100%;
+z-index: 999;
+}
+
+#loading .lds-dual-ring {
+  top: 50%;
+  position: relative;
+  left: 50%;
+  transform: scale(2);
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes glitch1 {
+  0% {
+    transform: none;
+    opacity: 1;
+  }
+  7% {
+    transform: skew(-0.5deg, -0.9deg);
+    opacity: 0.75;
+  }
+  10% {
+    transform: none;
+    opacity: 1;
+  }
+  27% {
+    transform: none;
+    opacity: 1;
+  }
+  30% {
+    transform: skew(0.8deg, -0.1deg);
+    opacity: 0.75;
+  }
+  35% {
+    transform: none;
+    opacity: 1;
+  }
+  52% {
+    transform: none;
+    opacity: 1;
+  }
+  55% {
+    transform: skew(-1deg, 0.2deg);
+    opacity: 0.75;
+  }
+  50% {
+    transform: none;
+    opacity: 1;
+  }
+  72% {
+    transform: none;
+    opacity: 1;
+  }
+  75% {
+    transform: skew(0.4deg, 1deg);
+    opacity: 0.75;
+  }
+  80% {
+    transform: none;
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}

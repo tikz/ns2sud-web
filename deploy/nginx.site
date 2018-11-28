@@ -1,8 +1,0 @@
-server {
-    listen 80;
-    server_name ns.lag.party;
-    location / {
-        include uwsgi_params;
-        uwsgi_pass unix:/home/ubuntu/ns2sud-web/app.sock;
-    }
-}

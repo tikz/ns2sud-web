@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>NS2SUD{{ ' - ' + title if title else '' }}</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/static/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+        crossorigin="anonymous">
+
+    <meta property="og:site_name" content="NS2 Sudamerica">
+    <meta property="og:url" content="http://ns2sud.com">
+    <meta property="og:title" content="{{ page_title if page_title else 'Web' }}">
+    <meta property="og:description" content="{{ page_description if page_description else ''}}">
+    <meta property="og:type" content="website">
+    <meta name="og:image" itemprop="image" content="{{ page_image if page_image else '/static/img/icon.png' }}">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    {% if has_loading %}
+    <div id="loading">
+        <div class="lds-dual-ring"></div>
+    </div>
+    {% endif %}
+    <div id="wrap">
+        <div id="black"></div>
+        {% block prenavbar %}{% endblock%}
+        <div class="navbar-wrapper">
+            <nav id="main-navbar" class="navbar is-dark" role="navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/">
+                        <img src="/static/img/logo.png" width="112" height="28">
+                    </a>
+                    <a role="button" class="navbar-burger burger" data-target="mainNavbar">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                <div class="navbar-menu">
+                    <div class="navbar-start">
+                        <a class="navbar-item" href="/">
+                            <span class="icon is-medium">
+                                <i class="fas fa-home"></i>
+                            </span>
+                            Home
+                        </a>
+                        <a class="navbar-item">
+                            <span class="icon  is-medium">
+                                <i class="fas fa-pencil-alt"></i>
+                            </span>
+                            Comics
+                        </a>
+                        <a class="navbar-item" href="{% if "/stats#" not in request.path %}/stats#/players/1{% endif
+                            %}">
+                            <span class="icon  is-medium">
+                                <i class="fas fa-chart-bar"></i>
+                            </span>
+                            Stats
+                        </a>
+                        <a class="navbar-item" target="_blank" href="http://wonitor.ns2sud.com">
+                            <span class="icon  is-medium">
+                                <i class="fas fa-chart-pie"></i>
+                            </span>
+                            Wonitor
+                        </a>
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                <span class="icon  is-medium">
+                                    <i class="fas fa-medal"></i>
+                                </span>
+                                NSL Teams
+                            </a>
+                            <div class="navbar-dropdown is-boxed">
+                                <a class="navbar-item" target="_blank" href="https://www.ensl.org/teams/1036">
+                                    Nismen
+                                </a>
+                                <a class="navbar-item" target="_blank" href="https://www.ensl.org/teams/1070">
+                                    Provoleta Tactical Squad
+                                </a>
+                            </div>
+                        </div>
+                        <a class="navbar-item">
+                            <span class="icon  is-medium">
+                                <i class="fas fa-flask"></i>
+                            </span>
+                            Labs
+                        </a>
+                        <a class="navbar-item" href="/admin">
+                            <span class="icon  is-medium">
+                                <i class="fas fa-gavel"></i>
+                            </span>
+                            Admin
+                        </a>
+                        {% if not current_user.is_authenticated %}
+                        <a class="navbar-item" href="/login">
+                            <span class="icon  is-medium">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </span>
+                            Login
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="navbar-end">
+                        {% if not current_user.is_authenticated %}
+                        <div id="discord" class="is-hidden-touch">
+                            <a href="https://discord.gg/Hx68RRd" target="_blank"></a>
+                            <div id="discord-glow"></div>
+                        </div>
+                        {% else %}
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                <figure class="image is-32x32">
+                                    <img class="is-rounded" src="{{ current_user.discord_avatar }}">
+                                </figure>
+                                {{ current_user.discord_tag.split('#')[0] }}
+                            </a>
+                            <div class="navbar-dropdown is-boxed">
+                                <a class="navbar-item" href="/user">
+                                    User panel
+                                </a>
+                                {% if current_user.ns2_id %}
+                                <a class="navbar-item" href="/stats/player/{{ current_user.ns2_id }}">
+                                    My stats
+                                </a>
+                                <a class="navbar-item" href="/user/kick">
+                                    Kick myself
+                                </a>
+                                {% endif %}
+                                <a class="navbar-item" href="/logout">
+                                    Logout
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+        </div>
+        {% block content %}{% endblock %}
+        {% block before_footer %}{% endblock %}
+    </div>
+
+    {% if not lite %}
+    <footer class="footer">
+        {% block prefooter %}{% endblock %}
+        <div class="container">
+            <nav class="level is-mobile">
+                <div class="level-left">
+                    <div class="level-item">
+                        <p>
+                            Art by <a href="">Mahadon</a>. Web design by <a href="">Tik</a>.</p>
+                    </div>
+                </div>
+                <div class="level-right">
+                    <p class="level-item"><a class="icon is-large colorless is-size-4" target="_blank" href="https://steamcommunity.com/groups/NS2SUD"><i
+                                class="fab fa-steam"></i></a></p>
+                    <p class="level-item"><a class="icon is-large colorless is-size-4" target="_blank" href="https://discord.gg/Hx68RRd"><i
+                                class="fab fa-discord"></i></a>
+                    </p>
+                </div>
+            </nav>
+        </div>
+    </footer>
+    {% endif %}
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+<script src="/static/js/chartjs-plugin-annotation.min.js"></script>
+{% if has_loading %}
+<script language="javascript" type="text/javascript">
+    $(window).on("load", function () {
+        $('#loading').fadeOut(500);
+    });
+</script>
+{% endif %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".navbar-burger").click(function () {
+            $(".navbar-burger").toggleClass("is-active");
+            $(".navbar-menu").toggleClass("is-active");
+        });
+    });
+</script>
+{% block include_js %}{% endblock %}
+
+{% if not lite %}
+<script src="/static/js/animations.js"></script>
+{% endif %}
+
+</html>

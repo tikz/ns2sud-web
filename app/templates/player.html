@@ -1,0 +1,209 @@
+{% set page_title = data.playerName %}
+{% set page_description = 'Player stats' %}
+{% set page_image = data.discordAvatar if data.discordAvatar else '/static/img/avatar.jpg' %}
+
+{% extends "master_template.html" %}
+{% block title %}{{ data.playerName }}{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container" id="main">
+    <div class="columns is-mobile">
+      <div class="column is-narrow">
+        <nav class="level">
+          <div class="level-item has-text-centered">
+            {% if data.discordAvatar %}
+            <figure class="image is-128x128">
+              <img class="is-rounded" src="{{ data.discordAvatar }}">
+            </figure>
+            {% else %}
+            <figure class="image is-128x128">
+              <img class="is-rounded" src="/static/img/avatar.jpg">
+            </figure>
+            {% endif %}
+          </div>
+          <div class="level-item">
+            <div class="column">
+              <h1 class="title is-size-4-touch is-size-3-desktop {% if data.other_names|length > 1 %}tooltip is-tooltip-bottom is-tooltip-multiline{% endif %}"
+                data-tooltip="{{ ', '.join(data.other_names) }}">{{ data.playerName }}</h1>
+              {% if data.discordTag %}
+              <h2 class="has-text-grey-light"><span class="icon"><i class="fab fa-discord" aria-hidden="true"></i></span>{{
+                data.discordTag }}</h2>
+              {% endif %}
+              <h2 class="has-text-grey">
+                <a href="{{ data.steam_url }}" target="_blank">
+                  <span class="icon"><i class="fab fa-steam" aria-hidden="true"></i></span>{{
+                  data.steamId }}
+                </a>
+              </h2>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="column">
+        <nav class="level full-height">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Hive Skill</p>
+              <p class="title">{{ data.hiveSkill }}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Marine Hive Skill</p>
+              <p class="title">2903</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Alien Hive Skill</p>
+              <p class="title">3903</p>
+            </div>
+          </div>
+        </nav>
+      </div>
+      {% if data.marineTime > 1 or data.alienTime > 1 or data.commanderTime > 1 %}
+      <div class="column is-narrow">
+        <div>
+          <canvas id="playtime-chart" width="128" height="128"></canvas>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    <hr />
+    <nav class="level">
+      {% if data.weapon_acc.Rifle %}
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Rifle Accuracy</p>
+          <p class="title">{{ "{:.1f}".format(data.weapon_acc.Rifle * 100) }}%</p>
+        </div>
+      </div>
+      {% endif %}
+      {% if data.weapon_acc.Shotgun %}
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Shotgun Accuracy</p>
+          <p class="title">{{ "{:.1f}".format(data.weapon_acc.Shotgun * 100) }}%</p>
+        </div>
+      </div>
+      {% endif %}
+      {% if data.kdr %}
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">KDR</p>
+          <p class="title">{{ '{:.2f}'.format(data.kdr) }}</p>
+        </div>
+      </div>
+      {% endif %}
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Lifeform</p>
+          <p class="title">Lerk</p>
+        </div>
+      </div>
+      {% if data.team1_winrate %}
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Recent Marine Winrate</p>
+          <p class="title">{{ data.team1_winrate[-1]['y'] }}%</p>
+        </div>
+      </div>
+      {% endif %}
+      {% if data.team2_winrate %}
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Recent Alien Winrate</p>
+          <p class="title">{{ data.team2_winrate[-1]['y'] }}%</p>
+        </div>
+      </div>
+      {% endif %}
+    </nav>
+    <hr />
+    {% if data.team1_winrate|length > 2 and data.team2_winrate|length > 2 %}
+    <h3 class="title is-size-4">Winrate per team</h3>
+    <h4 class="heading has-text-grey">Trailing 50 rounds</h4>
+    <div>
+      <canvas id="winrate-chart" width="100%" height="200"></canvas>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+{% block include_js %}
+<script>
+  {% if data.team1_winrate | length > 2 and data.team2_winrate | length > 2 %}
+  var ctx = document.getElementById("winrate-chart").getContext('2d');
+  var chart_data = {{ data.team1_winrate| safe }};
+  var winrate = new Chart(ctx, {
+    type: 'line',
+    data: {
+      datasets: [{
+        label: 'Marine Winrate',
+        data: {{ data.team1_winrate | tojson | safe }},
+    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+    borderColor: 'rgba(75, 192, 192, 1)',
+    borderWidth: 2
+  }, {
+      label: 'Alien Winrate',
+      data: {{ data.team2_winrate | tojson | safe }},
+  backgroundColor: 'rgba(255, 206, 86, 0.2)',
+    borderColor: 'rgba(255, 206, 86, 0.2)',
+      borderWidth: 2
+        }]
+      },
+  options: {
+    annotation: {
+      annotations: [{
+        type: 'line',
+        mode: 'horizontal',
+        scaleID: 'y-axis-0',
+        value: 50,
+        borderColor: 'rgba(255, 255, 255, 0.5)',
+        borderWidth: 2
+      }]
+    },
+    maintainAspectRatio: false,
+      scales: {
+      xAxes: [{
+        type: 'time'
+      }]
+    },
+    legend: {
+      display: true
+    }
+  }
+    });
+  {% endif %}
+  {% if data.marineTime > 1 or data.alienTime > 1 or data.commanderTime > 1 %}
+  var ctx = document.getElementById("playtime-chart").getContext('2d');
+  var playtime = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ["Marine hours", "Alien hours", "Comm hours"],
+      datasets: [{
+        label: '# of Votes',
+        data: [{{ data.marineTime | round }}, {{ data.alienTime | round }}, {{ data.commanderTime | round }}],
+  backgroundColor: [
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(255, 206, 86, 0.2)',
+    'rgba(153, 102, 255, 0.2)'
+  ],
+    borderColor: [
+      'rgba(75, 192, 192, 1)',
+      'rgba(255, 206, 86, 1)',
+      'rgba(153, 102, 255, 1)'
+    ],
+      borderWidth: 2
+        }]
+      },
+  options: {
+    maintainAspectRatio: false,
+      legend: {
+      display: false
+    }
+  }
+    });
+  {% endif %}
+</script>
+{% endblock %}

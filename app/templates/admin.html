@@ -1,0 +1,116 @@
+{% set page_title = 'Administración' %}
+{% set lite = True %}
+{% extends "master_template.html" %}
+{% block title %}Admin{% endblock %}
+{% block head %}
+{% endblock %}
+{% block prenavbar %}
+<div class="nightmare-babbler"></div>
+{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container" id="main">
+    <h1 class="title is-size-1 has-text-danger">Administración</h1>
+
+    <div class="columns">
+      <div class="column">
+        <h1 class="is-size-4">Notificaciones</h1>
+        <p class="has-text-grey is-size-7">Acceso: <b>Tik#4096, Mahadon#2021</b></p>
+        <hr>
+        <table class="table is-fullwidth">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Título</th>
+              <th>Mensaje</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for n in last_notifications %}
+            <tr>
+              <td>{{ n.date|humanize }}</td>
+              <td>{{ n.title }}</td>
+              <td>{{ n.message }}</td>
+              <td>
+                <a class="icon is-small" href="{{ n.link }}" target="_blank">
+                  <i class="fas fa-link"></i>
+                </a>
+              </td>
+              <td>{{ n.user.discord_tag }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="column is-4">
+        <form action="/admin/send_notification" method="POST">
+          <div class="field">
+            <label class="label">Título</label>
+            <div class="control">
+              <input class="input" type="text" value="NS2 Sudamerica" name="title">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Link</label>
+            <div class="control">
+              <div class="select">
+                <select name="link">
+                  <option>steam://run/4920//+connect game.ns2sud.com:27015</option>
+                  <option>http://ns2sud.com</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Mensaje</label>
+            <div class="control">
+              <textarea class="textarea" name="message">Estamos armando!</textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <label class="checkbox">
+                <input type="checkbox" id="confirm-1" class="confirm-checkbox">
+                <a class="has-text-danger">No soy un pelotudo.</a>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <label class="checkbox">
+                <input type="checkbox" id="confirm-2" class="confirm-checkbox">
+                <a class="has-text-danger">Ya pasaron HORAS desde el último mensaje.</a>
+              </label>
+            </div>
+          </div>
+
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-danger" id="send" disabled>Enviar a {{ n_subs }} suscriptores</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+{% block include_js %}
+<script>
+  $(document).ready(function () {
+    $('.confirm-checkbox').click(function () {
+      if ($('#confirm-1').prop('checked') && $('#confirm-2').prop('checked')) {
+        $('#send').prop('disabled', false);
+      } else {
+        $('#send').prop('disabled', true);
+      }
+    });
+  });
+</script>
+{% endblock %}

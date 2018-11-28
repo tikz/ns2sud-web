@@ -1,0 +1,71 @@
+{% extends "master_template.html" %}
+{% block title %}User Panel{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="container" id="main">
+    <h1 class="title is-size-1">User Panel</h1>
+    <div class="field">
+      <input id="notifications-toggle" type="checkbox" name="notifications-toggle" class="switch">
+      <label for="notifications-toggle">Enable Notifications</label>
+    </div>
+
+    {% if not current_user.token_used %}
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <p>Current features include:</p>
+          <ul>
+            <li>Add your Discord avatar to your player stats page, instead of being a cone.</li>
+            <li>Kick yourself from the server if your game crashed.</li>
+          </ul>
+        </div>
+        <div class="column is-5">
+          <div class="box has-background-grey has-text-white">
+            <ol class="is-size-5">
+              <li>Open the game and join our server.</li>
+              <li>In chat, enter the following text:</li>
+            </ol>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input is-large has-background-grey-dark" value="{{ current_user.token }}" onClick="this.select();"
+                readonly>
+              <span class="icon is-medium is-left">
+                <i class="fas fa-key"></i>
+              </span>
+            </div>
+            <h3 class="is-size-7 has-text-centered">After you have done it, this page should reload
+              automatically in a few seconds.</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="container">
+  </div>
+</section>
+{% endblock %}
+{% block include_js %}
+<script src="/static/js/notifications.js"></script>
+<script src="/static/js/sw.js"></script>
+<script>
+  {% if not current_user.token_used %}
+  var first_timestamp;
+  function checkForUpdate() {
+    setTimeout(function () {
+      axios.get("/user/json/token_updated").then(function (r2) {
+        if (r2.data.token_updated != first_timestamp) {
+          window.location.reload()
+        }
+      });
+      checkForUpdate();
+    }, 1000);
+  }
+  axios.get("/user/json/token_updated").then(function (r) {
+    first_timestamp = r.data.token_updated;
+    checkForUpdate();
+  });
+  {% endif %}
+</script>
+{% endblock %}

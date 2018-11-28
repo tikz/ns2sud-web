@@ -1,121 +1,144 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css" crossorigin="anonymous">
-	<link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
 
     <title>Server MOTD</title>
-  </head>
-  <body>
-  <div class="container">
+</head>
+<body>
+<div class="container">
 
-	<hr />
+    <hr/>
     <h1>NS2 Sudamerica 8v8</h1>
-	<hr />
-	<div class="row">
-		<div class="col-8">
-			<div id="rules">
-				<h2>
-					{% if lang == 'en' %}Rules{% endif %}
-					{% if lang == 'es' %}Reglas{% endif %}
-					{% if lang == 'pt' %}Regras{% endif %}
-				</h2>
-				<hr>
-				<h4 class="text-danger"><img src="/static/img/exit.png" class="img-inline inline-block" />
-					{% if lang == 'en' %}Play rounds until completion. {% endif %}
-					{% if lang == 'es' %}Jugá las partidas hasta el final. {% endif %}
-					{% if lang == 'pt' %}Jogue até o final da partida.{% endif %}
-				</h4>
-				<p>
-					{% if lang == 'en' %}Rage quitting unbalances and ruins games. Don't do it or you might be banned. If you have to leave for other reasons, please let your team know. {% endif %}
-				    {% if lang == 'es' %}Los ragequitters desbalancean y arruinan partidas. No lo hagas. Reiteradas ofensas pueden resultar en sanciones. Si tenés que irte por otros motivos, por favor avisa al resto.{% endif %}
-					{% if lang == 'pt' %}Os ragequitters desequilibram e arruínam os jogos. Não faça isso ou poderá ser banido. Ofensas repetidas podem resultar em penalidades. Se você tiver que sair por outros motivos, avise o resto dos jogadores.{% endif %}
-				</p>
-				
-				
-				<h4 class="text-danger"><img src="/static/img/t.png" class="img-inline inline-block" />
-					{% if lang == 'en' %}Be nice to other players.{% endif %}
-					{% if lang == 'es' %}Trata bien al resto de los jugadores.{% endif %}
-					{% if lang == 'pt' %}Trate bem os outros jogadores.{% endif %}
-				</h4>
-				<p>
-					{% if lang == 'en' %}Don't insult, don't troll. Use common sense.{% endif %}
-					{% if lang == 'es' %}No insultes a quien no conozcas, no trollees. Usá sentido común.{% endif %}
-					{% if lang == 'pt' %}Não insulte ninguém que você não conheça, não seja um troll. Use o bom senso.{% endif %}
-				</p>
-				
-				<h4 class="text-warning"><img src="/static/img/balance.png" class="img-inline inline-block" />
+    <hr/>
+    <div class="row">
+        <div class="col-8">
+            <div id="rules">
+                <h2>
+                    {% if lang == 'en' %}Rules{% endif %}
+                    {% if lang == 'es' %}Reglas{% endif %}
+                    {% if lang == 'pt' %}Regras{% endif %}
+                </h2>
+                <hr>
+                <h4 class="text-danger"><img src="/static/img/exit.png" class="img-inline inline-block"/>
+                    {% if lang == 'en' %}Play rounds until completion. {% endif %}
+                    {% if lang == 'es' %}Jugá las partidas hasta el final. {% endif %}
+                    {% if lang == 'pt' %}Jogue até o final da partida.{% endif %}
+                </h4>
+                <p>
+                    {% if lang == 'en' %}Rage quitting unbalances and ruins games. Don't do it or you might be banned.
+                    If you have to leave for other reasons, please let your team know. {% endif %}
+                    {% if lang == 'es' %}Los ragequitters desbalancean y arruinan partidas. No lo hagas. Reiteradas
+                    ofensas pueden resultar en sanciones. Si tenés que irte por otros motivos, por favor avisa al
+                    resto.{% endif %}
+                    {% if lang == 'pt' %}Os ragequitters desequilibram e arruínam os jogos. Não faça isso ou poderá ser
+                    banido. Ofensas repetidas podem resultar em penalidades. Se você tiver que sair por outros motivos,
+                    avise o resto dos jogadores.{% endif %}
+                </p>
 
-					{% if lang == 'en' %}Try to keep matches balanced.{% endif %}
-					{% if lang == 'es' %}Tratá de mantener partidas balanceadas.{% endif %}
-					{% if lang == 'pt' %}Tente manter os jogos equilibrados.{% endif %}
 
-					</h4>
-				<p>
-					{% if lang == 'en' %}For example, if you see the current player is 7v7 don't join to make it 8v7. Wait until there is another player to join so that it's 8v8. When in doubt, just ask. :){% endif %}
+                <h4 class="text-danger"><img src="/static/img/t.png" class="img-inline inline-block"/>
+                    {% if lang == 'en' %}Be nice to other players.{% endif %}
+                    {% if lang == 'es' %}Trata bien al resto de los jugadores.{% endif %}
+                    {% if lang == 'pt' %}Trate bem os outros jogadores.{% endif %}
+                </h4>
+                <p>
+                    {% if lang == 'en' %}Don't insult, don't troll. Use common sense.{% endif %}
+                    {% if lang == 'es' %}No insultes a quien no conozcas, no trollees. Usá sentido común.{% endif %}
+                    {% if lang == 'pt' %}Não insulte ninguém que você não conheça, não seja um troll. Use o bom senso.{%
+                    endif %}
+                </p>
 
-					{% if lang == 'es' %}Si, por ejemplo, ves una partida 7v7 no entres para hacerla 8v7. Esperá a que haya alguien más para entrar con vos así es 8v8. Ante la duda, preguntá. :){% endif %}
+                <h4 class="text-warning"><img src="/static/img/balance.png" class="img-inline inline-block"/>
 
-					{% if lang == 'pt' %}Se por exemplo, você vir um jogo 7v7, não entre para torná-lo 8v7. Espere até que haja alguém para entrar com você, para ficar 8x8. Em caso de dúvida, pergunte. :){% endif %}
-				</p>
-			</div>
-		</div>
-		<div class="col-4">
-		<iframe src="https://discordapp.com/widget?id=382346001496670209&theme=dark" width="100%" height="411" allowtransparency="true" frameborder="0" name="discord"></iframe>
-		</div>
-	</div>
-	
-	
-	
-	<hr />
-	
-	<div class="card mb-3">
-		  <h3 class="card-header"><img src="/static/img/warning.png" class="img-inline inline-block" />
-			  {% if lang == 'en' %}I can't join any team!{% endif %}
-			  {% if lang == 'es' %}No me deja entrar a ningún equipo!{% endif %}
-			  {% if lang == 'pt' %}Não consigo entrar em nenhuma equipe!{% endif %}
-		  </h3>
-		  <div class="card-body">
+                    {% if lang == 'en' %}Try to keep matches balanced.{% endif %}
+                    {% if lang == 'es' %}Tratá de mantener partidas balanceadas.{% endif %}
+                    {% if lang == 'pt' %}Tente manter os jogos equilibrados.{% endif %}
 
-			{% if lang == 'en' %}
-			<p class="card-text"><b>In order to play in this server your hive skill must be above 500.</b></p>
-			<p class="card-text">You can ask an admin to grant you access, but please <span class="text-danger">consider this is not a rookie server.</span> You will probably have a high ping here and, although most of us speak English, it isn't our first language so don't expect players to teach you the ropes of the game as they go.
-			
-			Please consider doing the game's tutorials, practicing on the Skulk Challenge or joining a different server in the meantime.</p>
-		  	{% endif %}
+                </h4>
+                <p>
+                    {% if lang == 'en' %}For example, if you see the current player is 7v7 don't join to make it 8v7.
+                    Wait until there is another player to join so that it's 8v8. When in doubt, just ask. :){% endif %}
 
-		    {% if lang == 'es' %}
-			<p class="card-text"><b>El servidor está configurado para requerir un mínimo de 500 hive skill.</b></p>
-			<p class="card-text">Si no lo tenés o ni sabés que es eso, no importa. Preguntale a alguno de los admines jugando para que te dé acceso.</p>
-			<p class="card-text">Considerá usar microfono cuando jugás, y entrar a nuestro Discord para enterarte cuando armamos.</p>
-		  	{% endif %}
+                    {% if lang == 'es' %}Si, por ejemplo, ves una partida 7v7 no entres para hacerla 8v7. Esperá a que
+                    haya alguien más para entrar con vos así es 8v8. Ante la duda, preguntá. :){% endif %}
 
-		    {% if lang == 'pt' %}
-			<p class="card-text"><b>O servidor está configurado para exigir um mínimo de 500 hive skill.</b></p>
-			<p class="card-text">Se você não tem ou não sabe o que é, isso não importa. Pergunte a qualquer um dos administradores jogando para lhe dar acesso</p>
-			<p class="card-text">Considere usar um microfone ao jogar e entre em nosso Discord para descobrir quando um jogo começa</p>
-		  	{% endif %}
-		  </div>
-	</div>
+                    {% if lang == 'pt' %}Se por exemplo, você vir um jogo 7v7, não entre para torná-lo 8v7. Espere até
+                    que haja alguém para entrar com você, para ficar 8x8. Em caso de dúvida, pergunte. :){% endif %}
+                </p>
+            </div>
+        </div>
+        <div class="col-4">
+            <iframe src="https://discordapp.com/widget?id=382346001496670209&theme=dark" width="100%" height="411"
+                    allowtransparency="true" frameborder="0" name="discord"></iframe>
+        </div>
+    </div>
 
-  <hr>
-	  <div class="text-center">
-		{% if lang == 'en' %}If you don't want to see this again, type <b>!acceptmotd</b> in chat.{% endif %}
-		{% if lang == 'es' %}Para no volver a ver esto, escribí <b>!acceptmotd</b> en el chat {% endif %}
-		{% if lang == 'pt' %}Se você nao quer ver essa mensagem denovo, escreva <b>!acceptmotd</b> no chat.{% endif %}
-	  </div>
-  </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-  </body>
+    <hr/>
+
+    <div class="card mb-3">
+        <h3 class="card-header"><img src="/static/img/warning.png" class="img-inline inline-block"/>
+            {% if lang == 'en' %}I can't join any team!{% endif %}
+            {% if lang == 'es' %}No me deja entrar a ningún equipo!{% endif %}
+            {% if lang == 'pt' %}Não consigo entrar em nenhuma equipe!{% endif %}
+        </h3>
+        <div class="card-body">
+
+            {% if lang == 'en' %}
+            <p class="card-text"><b>In order to play in this server your hive skill must be above 500.</b></p>
+            <p class="card-text">You can ask an admin to grant you access, but please <span class="text-danger">consider this is not a rookie server.</span>
+                You will probably have a high ping here and, although most of us speak English, it isn't our first
+                language so don't expect players to teach you the ropes of the game as they go.
+
+                Please consider doing the game's tutorials, practicing on the Skulk Challenge or joining a different
+                server in the meantime.</p>
+            {% endif %}
+
+            {% if lang == 'es' %}
+            <p class="card-text"><b>El servidor está configurado para requerir un mínimo de 500 hive skill.</b></p>
+            <p class="card-text">Si no lo tenés o ni sabés que es eso, no importa. Preguntale a alguno de los admines
+                jugando para que te dé acceso.</p>
+            <p class="card-text">Considerá usar microfono cuando jugás, y entrar a nuestro Discord para enterarte cuando
+                armamos.</p>
+            {% endif %}
+
+            {% if lang == 'pt' %}
+            <p class="card-text"><b>O servidor está configurado para exigir um mínimo de 500 hive skill.</b></p>
+            <p class="card-text">Se você não tem ou não sabe o que é, isso não importa. Pergunte a qualquer um dos
+                administradores jogando para lhe dar acesso</p>
+            <p class="card-text">Considere usar um microfone ao jogar e entre em nosso Discord para descobrir quando um
+                jogo começa</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+    <div class="text-center">
+        {% if lang == 'en' %}If you don't want to see this again, type <b>!acceptmotd</b> in chat.{% endif %}
+        {% if lang == 'es' %}Para no volver a ver esto, escribí <b>!acceptmotd</b> en el chat {% endif %}
+        {% if lang == 'pt' %}Se você nao quer ver essa mensagem denovo, escreva <b>!acceptmotd</b> no chat.{% endif %}
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+</body>
 </html>
