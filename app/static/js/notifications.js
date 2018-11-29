@@ -41,6 +41,13 @@ function updateSubscriptionOnServer(subscription) {
   axios.post('/notifications/subscribe', subscription).then(function () {
     pushButton.disabled = false;
   });
+  // const subscriptionDetails = document.querySelector('.notifications-desc');
+
+  // if (subscription) {
+  //   subscriptionDetails.classList.remove('is-invisible');
+  // } else {
+  //   subscriptionDetails.classList.add('is-invisible');
+  // }
 }
 
 function removeSubscriptionOnServer(subscription) {

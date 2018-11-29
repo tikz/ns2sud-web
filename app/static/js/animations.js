@@ -5,13 +5,6 @@ $("body").velocity({
     easing: "linear"
   })
 
-$("#black").velocity({
-  opacity: "0.3",
-}, {
-    duration: 3000,
-    easing: "linear"
-  });
-
 $(".container").css('opacity', '0').velocity({
   opacity: "1",
 }, {
@@ -51,6 +44,19 @@ $("#main-navbar .navbar-item").hover(function () {
     });
 });
 
+$("#graph_chart").velocity({ height: ["500px", "0px"] }, {
+  duration: 1000,
+  delay: 1000,
+  easing: "easeOutSine"
+});
+
+$('#hero-player-bg-wrapper').velocity("stop", true).velocity({
+  "opacity": [1, 0]
+}, {
+    duration: 1500,
+    easing: "easeInSine"
+  });
+
 $('a.navbar-item').click(function (e) {
   e.preventDefault();
   newLocation = this.href;
@@ -61,14 +67,14 @@ $('a.navbar-item').click(function (e) {
       easing: "linear"
     });
 
-  $('#graph_chart').velocity("stop", true).velocity({
+  $('#graph-chart, #hero-player-bg').velocity("stop", true).velocity({
     "height": ["0px", "500px"]
   }, {
       duration: 500,
       easing: "easeInSine"
     });
 
-  $('.container, footer').velocity("stop", true).velocity({
+  $('.container, footer, .hero').velocity("stop", true).velocity({
     "opacity": "0"
   }, {
       duration: 500,

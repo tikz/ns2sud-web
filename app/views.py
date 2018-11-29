@@ -133,8 +133,6 @@ def player(steamid):
         data['steam_url'] = SteamID(
             int((data['steamId'] - 1) / 2), 1, 1, 0).community_url()
 
-        # Charts
-
         # Winrate over time chart
         for team in (1, 2):
             df = player_wins[player_wins['teamNumber'] == team]

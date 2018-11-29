@@ -3,30 +3,29 @@
 {% block head %}
 {% endblock %}
 {% block content %}
-<section class="section">
-  <div class="container" id="main">
-    <h1 class="title is-size-1">User Panel</h1>
-    <div class="field">
-      <input id="notifications-toggle" type="checkbox" name="notifications-toggle" class="switch">
-      <label for="notifications-toggle">Enable Notifications</label>
-    </div>
+<section class="hero is-medium is-primary is-bold">
 
-    {% if not current_user.token_used %}
+  {% if not current_user.token_used %}
+  <div class="hero-body" id="hero-user-link">
     <div class="container">
       <div class="columns">
-        <div class="column">
-          <p>Current features include:</p>
+        <div class="column is-size-5">
+
+          <h1 class="title">Link your SteamID</h1>
+          <h2 class="subtitle">
+            Current features include:
+          </h2>
           <ul>
-            <li>Add your Discord avatar to your player stats page, instead of being a cone.</li>
+            <li>Add your avatar next to your name, instead of being a cone.</li>
             <li>Kick yourself from the server if your game crashed.</li>
           </ul>
         </div>
         <div class="column is-5">
           <div class="box has-background-grey has-text-white">
-            <ol class="is-size-5">
-              <li>Open the game and join our server.</li>
-              <li>In chat, enter the following text:</li>
-            </ol>
+            <div>
+              <h2 class="is-size-5">Connect to <span class="has-text-warning">NS2 Sudamerica 8v8</span> <br> and enter
+                the following token in the <span class="is-bold has-text-weight-bold has-text-warning">chat</span>:</h2>
+            </div>
             <div class="control has-icons-left has-icons-right">
               <input class="input is-large has-background-grey-dark" value="{{ current_user.token }}" onClick="this.select();"
                 readonly>
@@ -34,13 +33,25 @@
                 <i class="fas fa-key"></i>
               </span>
             </div>
-            <h3 class="is-size-7 has-text-centered">After you have done it, this page should reload
-              automatically in a few seconds.</h3>
+            <h3 class="is-size-7 has-text-centered">This page should reload automatically.</h3>
           </div>
         </div>
       </div>
     </div>
-    {% endif %}
+  </div>
+  {% endif %}
+</section>
+
+<section class="section">
+  <div class="container" id="main">
+    <h1 class="title is-size-1">User Panel</h1>
+    <div class="field">
+      <input id="notifications-toggle" type="checkbox" name="notifications-toggle" class="switch">
+      <label for="notifications-toggle">Push Notifications</label>
+      <p class="notifications-desc is-size-7">This toggle enables notifications in your current browser or
+        device.</p>
+    </div>
+    <hr>
   </div>
   <div class="container">
   </div>

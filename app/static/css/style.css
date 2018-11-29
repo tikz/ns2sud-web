@@ -7541,8 +7541,13 @@ a.colorless:hover {
   background-color: rgba(0, 0, 0, 0.3);
   padding: 0px; }
 
+.no-pointer {
+  pointer-events: none; }
+
+.no-padding {
+  padding: 0; }
+
 #hero-graph .hero-foot {
-  pointer-events: none;
   margin-bottom: 75px; }
 
 #hero-graph .hero-foot h1 {
@@ -7643,6 +7648,40 @@ hr {
   height: 100%;
   background: url(/static/img/students.png) no-repeat;
   background-size: cover; }
+
+.avatar img {
+  box-shadow: 0px 0px 30px #000; }
+
+#hero-user-link {
+  background: url(/static/img/ns-1.jpg) no-repeat;
+  background-size: cover;
+  box-shadow: 0px 0px 30px #000; }
+
+#hero-player {
+  position: relative;
+  background: #000;
+  box-shadow: 0px 0px 30px #000; }
+
+#hero-player-bg-wrapper {
+  height: 500px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000;
+  box-shadow: 10px 0px 10px #000; }
+
+#hero-player-bg {
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  filter: blur(30px);
+  opacity: 0.6;
+  background-position: center center;
+  position: relative; }
+
+#hero-player-content {
+  z-index: 99; }
 
 #loading {
   background-color: #232830;

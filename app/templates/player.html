@@ -6,18 +6,161 @@
 {% block title %}{{ data.playerName }}{% endblock %}
 {% block head %}{% endblock %}
 {% block content %}
+
+<!-- <div id="hero-player-wrapper">
+  <section class="hero is-medium is-primary is-bold" id="hero-player">
+
+    <div id="hero-player-bg" style="background-image: url({{ data.discordAvatar }}"></div>
+    <div id="hero-player-content">
+      <div class="hero-body">
+
+      </div>
+    </div>
+
+  </section>
+</div> -->
+
+{% if data.discordAvatar %}
+<section class="section">
+  <section id="hero-graph" class="hero" id="hero-player">
+    <div class="hero-body no-padding">
+      <div id="hero-player-bg-wrapper">
+        <div id="hero-player-bg" style="background-image: url({{ data.discordAvatar }}"></div>
+      </div>
+    </div>
+    <div class="hero-foot">
+      <div class="container">
+        <div class="columns is-mobile">
+          <div class="column is-narrow">
+            <nav class="level">
+              <div class="level-item has-text-centered">
+                {% if data.discordAvatar %}
+                <figure class="image is-128x128 avatar">
+                  <img class="is-rounded" src="{{ data.discordAvatar }}">
+                </figure>
+                {% else %}
+                <figure class="image is-128x128 avatar">
+                  <img class="is-rounded" src="/static/img/avatar.jpg">
+                </figure>
+                {% endif %}
+              </div>
+              <div class="level-item">
+                <div class="column">
+                  <h1 class="title is-size-4-touch is-size-3-desktop {% if data.other_names|length > 1 %}tooltip is-tooltip-bottom is-tooltip-multiline{% endif %}"
+                    data-tooltip="{{ ', '.join(data.other_names) }}">{{ data.playerName }}</h1>
+                  {% if data.discordTag %}
+                  <h2 class="has-text-grey-light"><span class="icon"><i class="fab fa-discord" aria-hidden="true"></i></span>{{
+                    data.discordTag }}</h2>
+                  {% endif %}
+                  <h2 class="has-text-grey">
+                    <a href="{{ data.steam_url }}" target="_blank">
+                      <span class="icon"><i class="fab fa-steam" aria-hidden="true"></i></span>{{
+                      data.steamId }}
+                    </a>
+                  </h2>
+                </div>
+              </div>
+            </nav>
+          </div>
+          <div class="column">
+            <nav class="level full-height">
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Hive Skill</p>
+                  <p class="title">{{ data.hiveSkill }}</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Marine Hive Skill</p>
+                  <p class="title">{{ data.marineHiveSkill if data.marineHiveSkill else data.hiveSkill }}</p>
+                </div>
+              </div>
+              <div class="level-item has-text-centered">
+                <div>
+                  <p class="heading">Alien Hive Skill</p>
+                  <p class="title">{{ data.alienHiveSkill if data.alienHiveSkill else data.hiveSkill }}</p>
+                </div>
+              </div>
+            </nav>
+          </div>
+          {% if data.marineTime > 1 or data.alienTime > 1 or data.commanderTime > 1 %}
+          <div class="column is-narrow">
+            <div>
+              <canvas id="playtime-chart" width="128" height="128"></canvas>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <hr class="has-background-grey-light" />
+        <nav class=" level">
+          {% if data.weapon_acc.Rifle %}
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Rifle Accuracy</p>
+              <p class="title">{{ "{:.1f}".format(data.weapon_acc.Rifle * 100) }}%</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if data.weapon_acc.Shotgun %}
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Shotgun Accuracy</p>
+              <p class="title">{{ "{:.1f}".format(data.weapon_acc.Shotgun * 100) }}%</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if data.kdr %}
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">KDR</p>
+              <p class="title">{{ '{:.2f}'.format(data.kdr) }}</p>
+            </div>
+          </div>
+          {% endif %}
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Lifeform</p>
+              <p class="title">{{ data.lifeform }}</p>
+            </div>
+          </div>
+          {% if data.team1_winrate %}
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Recent Marine Winrate</p>
+              <p class="title">{{ data.team1_winrate[-1]['y'] }}%</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if data.team2_winrate %}
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Recent Alien Winrate</p>
+              <p class="title">{{ data.team2_winrate[-1]['y'] }}%</p>
+            </div>
+          </div>
+          {% endif %}
+        </nav>
+      </div>
+    </div>
+  </section>
+</section>
+{% endif %}
+
 <section class="section">
   <div class="container" id="main">
+    {% if not data.discordAvatar %}
     <div class="columns is-mobile">
       <div class="column is-narrow">
         <nav class="level">
           <div class="level-item has-text-centered">
             {% if data.discordAvatar %}
-            <figure class="image is-128x128">
+            <figure class="image is-128x128 avatar">
               <img class="is-rounded" src="{{ data.discordAvatar }}">
             </figure>
             {% else %}
-            <figure class="image is-128x128">
+            <figure class="image is-128x128 avatar">
               <img class="is-rounded" src="/static/img/avatar.jpg">
             </figure>
             {% endif %}
@@ -119,8 +262,8 @@
       </div>
       {% endif %}
     </nav>
-
     <hr />
+    {% endif %}
 
     <h2 class="title is-size-2">Charts</h2>
 
@@ -330,5 +473,13 @@
   }
     });
   {% endif %}
+
+
+  $("#black").velocity("stop", true).velocity({
+    opacity: "0.8",
+  }, {
+      duration: 3000,
+      easing: "linear"
+    });
 </script>
 {% endblock %}

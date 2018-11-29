@@ -200,6 +200,13 @@
             $(".navbar-menu").toggleClass("is-active");
         });
     });
+
+    $("#black").velocity({
+        opacity: "0.3",
+    }, {
+            duration: 3000,
+            easing: "linear"
+        });
 </script>
 {% block include_js %}{% endblock %}
 

@@ -9,7 +9,7 @@
     <div class="hero-body">
       <svg width="100%" height="0" id="graph_chart" class="border-bottom"></svg>
     </div>
-    <div class="hero-foot">
+    <div class="hero-foot no-pointer">
       <div class="container">
         <h1 class="title">Stats</h1>
         <h2 class="title is-size-5">Kills between players of the last 50 matches.</h2>
@@ -43,13 +43,6 @@
 {% endblock %}
 {% block include_js %}
 {% raw %}
-<script type="text/javascript">
-  $("#graph_chart").velocity({ height: ["500px", "0px"] }, {
-    duration: 1000,
-    delay: 1000,
-    easing: "easeOutSine"
-  });
-</script>
 <script type="text/x-template" id="matches-template">
   <div id="matches">
     <div class="control has-icons-left has-icons-right">
