@@ -22,6 +22,7 @@ while True:
             app.config['GAMESERVER_WEB_HOST'] + '/?request=getchatlist', auth=auth).json()
     except:
         pass
+
     else:
         for msg in r:
             if app.config['LINK_PREFIX'] in msg['message']:

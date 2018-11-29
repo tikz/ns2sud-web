@@ -104,7 +104,7 @@ def send_notification():
 
 
 @app.route('/stats/player/<steamid>')
-@cache.cached(timeout=60)
+@cache.cached(timeout=1)
 def player(steamid):
     steamid = int(steamid)
     if not steamid:
@@ -130,6 +130,12 @@ def player(steamid):
         player_wins = pd.DataFrame(db.execute(
             ns2plus_queries.PLAYER_WINS, steamid).fetchall())
 
+        data['steam_url'] = SteamID(
+            int((data['steamId'] - 1) / 2), 1, 1, 0).community_url()
+
+        # Charts
+
+        # Winrate over time chart
         for team in (1, 2):
             df = player_wins[player_wins['teamNumber'] == team]
             shift = 30 - len(df) % 30
@@ -140,8 +146,22 @@ def player(steamid):
                 data[f'team{team}_winrate'] = [
                     {'x': p[2], 'y': int(p[3] * 100)} for p in df.values]
 
-        data['steam_url'] = SteamID(
-            int((data['steamId'] - 1) / 2), 1, 1, 0).community_url()
+        # Activity chart
+        q = db.execute(ns2plus_queries.PLAYER_ACTIVITY, steamid).fetchall()
+        df = pd.DataFrame(q)
+        df['Datetime'] = pd.to_datetime(df['roundDate'])
+        df = df.set_index('Datetime')
+        df = df.hoursPlayed.resample('W').sum()
+        data['activity'] = [{'x': x.to_pydatetime().strftime('%Y-%m-%d %H:%M:%S'), 'y': '%.2f' % y}
+                            for x, y in zip(list(df.index), list(df.values))]
+
+        # Class time chart
+        q = db.execute(ns2plus_queries.PLAYER_CLASSTIME, steamid).fetchall()
+        data['classes'] = {c['class']: '%.2f' % c['classTime']
+                           if c['classTime'] else 0 for c in q}
+        lifeforms = ['Gorge', 'Lerk', 'Fade', 'Onos']
+        lifeforms_time = [(l, float(data['classes'][l])) for l in lifeforms]
+        data['lifeform'] = max(lifeforms_time, key=lambda x: x[1])[0]
 
     return render_template('player.html', data=data)
 
@@ -361,17 +381,10 @@ def notifications_unsubscribe():
             db.session.commit()
             return jsonify({'success': True})
     return jsonify({'success': False})
-# @app.route('/subscription/', methods=['GET', 'POST'])
-# def subscription():
-#     if request.method == 'GET':
-#         return Response(response=json.dumps({'public_key': app.config['VAPID_PUBLIC_KEY']}),
-#                         headers={'Access-Control-Allow-Origin': '*'}, content_type='application/json')
-#     print("SUBSCRIPCIONNNNNNN")
-#     subscription_token = request.get_json('subscription_token')
-#     return Response(status=201, mimetype='application/json')
-
 
 # Static files that require root endpoint
+
+
 @app.route('/sw.js')
 def sw():
     return app.send_static_file('js/sw.js')

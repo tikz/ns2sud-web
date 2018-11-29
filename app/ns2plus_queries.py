@@ -1,10 +1,14 @@
-PLAYER_STATS = 'select ps.playerName, ps.hiveSkill, ps.steamId, ps.timePlayed1/60/60 marineTime, ps.timePlayed2/60/60 alienTime, ps.commanderTime/60/60 commanderTime, ps.kills/ps.deaths kdr, ps.lastSeen, ps.discordTag, ps.discordAvatar from PlayerStats ps where ps.steamId = %s'
+PLAYER_STATS = 'select ps.playerName, ps.hiveSkill, ps.marineHiveSkill, ps.alienHiveSkill, ps.steamId, ps.timePlayed1/60/60 marineTime, ps.timePlayed2/60/60 alienTime, ps.commanderTime/60/60 commanderTime, ps.kills/ps.deaths kdr, ps.lastSeen, ps.discordTag, ps.discordAvatar from PlayerStats ps where ps.steamId = %s'
 
 PLAYER_WEAPON_ACC = 'select weapon, avg((hits-onosHits)/(hits+misses-onosHits)) acc from PlayerWeaponStats where steamId = %s group by weapon'
 
 PLAYER_WINS = 'select ri.roundId, ri.roundDate, prs.teamNumber, if(prs.teamNumber = ri.winningTeam, 1, 0) win from PlayerRoundStats prs inner join RoundInfo ri on ri.roundId = prs.roundId where prs.steamId = %s'
 
 PLAYER_OTHER_NAMES = 'select playerName from PlayerRoundStats where steamId = %s group by playerName order by roundId desc limit 10'
+
+PLAYER_ACTIVITY = 'select ri.roundDate, prs.timePlayed/60/60 hoursPlayed from PlayerRoundStats prs inner join RoundInfo ri on ri.roundId = prs.roundId where prs.steamId = %s'
+
+PLAYER_CLASSTIME = 'select c.class, classTime/60/60 classTime from (select class from PlayerClassStats group by class) c left join (select class, sum(classTime) classTime from PlayerClassStats where steamId = %s group by class) pc on pc.class = c.class'
 
 
 def limit(query):
