@@ -7545,15 +7545,12 @@ a.colorless:hover {
   pointer-events: none; }
 
 .no-padding {
-  padding: 0; }
+  padding: 0 !important; }
 
 #hero-graph .hero-foot {
   margin-bottom: 75px; }
 
-#hero-graph .hero-foot h1 {
-  text-shadow: 4px 4px #000; }
-
-#hero-graph .hero-foot h2 {
+.hero-foot {
   text-shadow: 2px 2px #000; }
 
 #hero-graph .hero-foot h1 {
@@ -7652,10 +7649,19 @@ hr {
 .avatar img {
   box-shadow: 0px 0px 30px #000; }
 
-#hero-user-link {
-  background: url(/static/img/ns-1.jpg) no-repeat;
+#hero-user-link .hero-footer {
+  padding: 90px; }
+
+#hero-user-link-bg {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  background: url(/static/img/hero-bg.jpg) no-repeat;
   background-size: cover;
-  box-shadow: 0px 0px 30px #000; }
+  background-position: top center; }
 
 #hero-player {
   position: relative;

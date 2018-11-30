@@ -3,10 +3,12 @@
 {% block head %}
 {% endblock %}
 {% block content %}
-<section class="hero is-medium is-primary is-bold">
-
-  {% if not current_user.token_used %}
-  <div class="hero-body" id="hero-user-link">
+{% if not current_user.token_used %}
+<section class="hero is-medium is-bold" id="hero-user-link">
+  <div class="hero-body no-padding">
+    <div id="hero-user-link-bg" class="border-bottom"></div>
+  </div>
+  <div class="hero-footer">
     <div class="container">
       <div class="columns">
         <div class="column is-size-5">
@@ -39,8 +41,8 @@
       </div>
     </div>
   </div>
-  {% endif %}
 </section>
+{% endif %}
 
 <section class="section">
   <div class="container" id="main">

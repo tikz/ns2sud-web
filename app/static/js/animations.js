@@ -57,6 +57,7 @@ $('#hero-player-bg-wrapper').velocity("stop", true).velocity({
     easing: "easeInSine"
   });
 
+
 $('a.navbar-item').click(function (e) {
   e.preventDefault();
   newLocation = this.href;
@@ -67,7 +68,7 @@ $('a.navbar-item').click(function (e) {
       easing: "linear"
     });
 
-  $('#graph-chart, #hero-player-bg').velocity("stop", true).velocity({
+  $('#graph-chart, #hero-player-bg, #hero-user-link').velocity("stop", true).velocity({
     "height": ["0px", "500px"]
   }, {
       duration: 500,
