@@ -104,7 +104,7 @@ def send_notification():
 
 
 @app.route('/stats/player/<steamid>')
-@cache.cached(timeout=1)
+@cache.cached(timeout=60)
 def player(steamid):
     steamid = int(steamid)
     if not steamid:
