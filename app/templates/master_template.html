@@ -66,12 +66,6 @@
                             </span>
                             Home
                         </a>
-                        <!-- <a class="navbar-item">
-                            <span class="icon  is-medium">
-                                <i class="fas fa-pencil-alt"></i>
-                            </span>
-                            Comics
-                        </a> -->
                         <a class="navbar-item" href="/stats#/players/">
                             <span class="icon  is-medium">
                                 <i class="fas fa-chart-bar"></i>
@@ -100,12 +94,6 @@
                                 </a>
                             </div>
                         </div>
-                        <!-- <a class="navbar-item">
-                            <span class="icon  is-medium">
-                                <i class="fas fa-flask"></i>
-                            </span>
-                            Labs
-                        </a> -->
                         {% if current_user.is_authenticated and current_user.permissions %}
                         {% if 'admin' in current_user.permissions %}
                         <a class="navbar-item" href="/admin">
