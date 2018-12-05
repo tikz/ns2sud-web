@@ -78,13 +78,13 @@
           <hr>
           <h1 class="is-size-4">Matches</h1>
           <div class="chart-container">
-            <canvas id="matches-chart" height="100"></canvas>
+            <canvas id="matches-chart" height="242"></canvas>
           </div>
 
-          <h1 class="is-size-4">New players</h1>
+          <!-- <h1 class="is-size-4">New players</h1>
           <div class="chart-container">
             <canvas id="new-players-chart" height="100"></canvas>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -138,34 +138,34 @@
       });
     })
 
-  axios.get("/stats/global/json/new_players")
-    .then(function (response) {
-      var chart_data = response.data;
-      var ctx = document.getElementById("new-players-chart").getContext('2d');
-      var winrate = new Chart(ctx, {
-        type: 'line',
-        data: {
-          datasets: [{
-            label: 'New players',
-            data: chart_data,
-            backgroundColor: 'rgba(192, 149, 75, 0.2)',
-            borderColor: 'rgba(192, 149, 75, 1)',
-            borderWidth: 2
-          }]
-        },
-        options: {
-          maintainAspectRatio: false,
-          scales: {
-            xAxes: [{
-              type: 'time'
-            }]
-          },
-          legend: {
-            display: false
-          }
-        }
-      });
-    })
+  // axios.get("/stats/global/json/new_players")
+  //   .then(function (response) {
+  //     var chart_data = response.data;
+  //     var ctx = document.getElementById("new-players-chart").getContext('2d');
+  //     var winrate = new Chart(ctx, {
+  //       type: 'line',
+  //       data: {
+  //         datasets: [{
+  //           label: 'New players',
+  //           data: chart_data,
+  //           backgroundColor: 'rgba(192, 149, 75, 0.2)',
+  //           borderColor: 'rgba(192, 149, 75, 1)',
+  //           borderWidth: 2
+  //         }]
+  //       },
+  //       options: {
+  //         maintainAspectRatio: false,
+  //         scales: {
+  //           xAxes: [{
+  //             type: 'time'
+  //           }]
+  //         },
+  //         legend: {
+  //           display: false
+  //         }
+  //       }
+  //     });
+  //   })
 
 </script>
 {% endblock %}

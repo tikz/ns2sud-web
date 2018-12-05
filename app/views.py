@@ -346,6 +346,21 @@ def new_players():
         return jsonify(response)
 
 
+@app.route('/stats/global/json/total_players')
+@cache.cached(timeout=60)
+def total_players():
+    with Database() as db:
+        data = db.execute(ns2plus_queries.NEW_PLAYERS).fetchall()
+        df = pd.DataFrame(data)
+        df['Datetime'] = pd.to_datetime(df['roundDate'])
+        df = df.set_index('Datetime')
+        df = df.steamId.resample('W').count()
+        response = [{'x': x.to_pydatetime().strftime('%Y-%m-%d %H:%M:%S'),
+                     'y': int(y)}
+                    for x, y in zip(list(df.index), list(df.values.cumsum()))]
+        return jsonify(response)
+
+
 @app.route('/login')
 def oauth_authorize():
     if not current_user.is_anonymous:
