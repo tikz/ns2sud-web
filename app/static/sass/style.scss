@@ -310,8 +310,12 @@ border-width: 0.25em;
 }
 }
 
-#statsContainer {
+#stats-container {
 min-height: 700px;
+}
+
+#stats-container .tabs {
+  font-size: 1.3rem;
 }
 
 .navbar-item.has-dropdown a.navbar-link {
@@ -411,6 +415,13 @@ background-position: top center;
   background:#000;
   box-shadow: 10px 0px 10px #000;
 }
+
+.user-card {
+  @include until($tablet) {
+    margin-bottom: 13rem;
+  }
+}
+
 
 .hero-header-bg-player {
   filter: blur(30px);

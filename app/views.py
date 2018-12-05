@@ -97,6 +97,8 @@ def get_stats(endpoint, filter, limit, page):
 
 @app.route('/')
 def index():
+    if current_user.is_anonymous:
+        return abort(404)
     matches = get_stats('matches', '', 8, 1)['result']
     return render_template('index.html', gameserver=gameserver_status(),
                            last_matches=matches)
@@ -190,7 +192,7 @@ def stats():
 
 
 @app.route('/stats/player/<steamid>')
-@cache.cached(timeout=30)
+@cache.cached(timeout=1)
 def player(steamid):
     steamid = int(steamid)
     if not steamid:
@@ -269,7 +271,7 @@ def kill_graph():
         links_v = []
         last_round_id = db.execute(ns2plus_queries.LAST_ROUND_ID).fetchone()
         data = db.execute(ns2plus_queries.KILL_GRAPH,
-                          last_round_id - 30).fetchall()
+                          last_round_id - 10).fetchall()
         for r in data:
             kfId = r['killerSteamId']
             vId = r['victimSteamId']

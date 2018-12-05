@@ -19,9 +19,9 @@
     </div>
     <div class="hero-body hero-body-player">
       <div class="container">
-        <div class="columns is-mobile">
+        <div class="columns">
           <div class="column is-narrow">
-            <nav class="level">
+            <nav class="level is-mobile user-card">
               <div class="level-item has-text-centered">
                 {% if data.discordAvatar %}
                 <figure class="image is-128x128 avatar">
@@ -147,9 +147,9 @@
 <section class="section">
   <div class="container" id="main">
     {% if not data.discordAvatar %}
-    <div class="columns is-mobile">
+    <div class="columns">
       <div class="column is-narrow">
-        <nav class="level">
+        <nav class="level is-mobile">
           <div class="level-item has-text-centered">
             {% if data.discordAvatar %}
             <figure class="image is-128x128 avatar">

@@ -17,7 +17,7 @@
       </div>
     </div>
   </section>
-  <div class="container" id="statsContainer">
+  <div class="container" id="stats-container">
     <div id="main">
       {% raw %}
       <div class="tabs is-toggle is-fullwidth is-large">
@@ -59,11 +59,11 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Date</th>
           <th>Format</th>
           <th>Map</th>
-          <th>Winner</th>
-          <th>Duration</th>
+          <th class="is-hidden-mobile">Winner</th>
+          <th class="is-hidden-mobile">Duration</th>
+          <th>Date</th>
         </tr>
       </thead>
       <tbody>
@@ -71,14 +71,14 @@
           <th>
               <a v-bind:href="'/stats/match/'+match.roundId">{{ match.roundId }}</a>
           </th>
-          <td>{{ match.roundDate }}</td>
           <td>{{ match.maxPlayers1 }}v{{ match.maxPlayers2 }}</td>
           <td>{{ match.mapName }}</td>
-          <td>
+          <td class="is-hidden-mobile">
             <template v-if="match.winningTeam == 1">Marines</template>
             <template v-if="match.winningTeam == 2">Aliens</template>
           </td>
-          <td>{{ match.roundLength }}</td>
+          <td class="is-hidden-mobile">{{ match.roundLength }}</td>
+          <td>{{ match.roundDateH }}</td>
         </tr>
       </tbody>
     </table>
@@ -116,8 +116,8 @@
           <th>Steam ID</th>
           <th></th>
           <th>Name</th>
-          <th>Hive Skill</th>
-          <th>Other names</th>
+          <th class="is-hidden-mobile">Hive Skill</th>
+          <th class="is-hidden-mobile">Other names</th>
           <th>Last seen</th>
         </tr>
       </thead>
@@ -132,8 +132,8 @@
             </figure>
           </td>
           <td>{{ player.playerName }}</td>
-          <td>{{ player.hiveSkill }}</td>
-          <td>{{ player.name_list }}</td>
+          <td class="is-hidden-mobile">{{ player.hiveSkill }}</td>
+          <td class="is-hidden-mobile">{{ player.name_list }}</td>
           <td>{{ player.lastSeenH }}</td>
         </tr>
       </tbody>
