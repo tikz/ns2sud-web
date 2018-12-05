@@ -16,13 +16,16 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+    
     <link rel="manifest" href="/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
         crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-TileColor" content="#6100ff">
+    <meta name="msapplication-TileImage" content="/static/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#6100ff">
 
     <meta property="og:site_name" content="NS2 Sudamerica">
     <meta property="og:url" content="http://ns2sud.com">
@@ -30,7 +33,6 @@
     <meta property="og:description" content="{{ page_description if page_description else ''}}">
     <meta property="og:type" content="website">
     <meta name="og:image" itemprop="image" content="{{ page_image if page_image else '/static/img/icon.png' }}">
-    <meta name="theme-color" content="#6100ff">
     
     {% block head %}{% endblock %}
 </head>
@@ -171,7 +173,7 @@
         {% block prefooter %}{% endblock %}
         <section class="section">
             <div class="container">
-                <nav class="level is-mobile">
+                <nav class="level">
                     <div class="level-left">
                         <div class="level-item">
                             <p>
