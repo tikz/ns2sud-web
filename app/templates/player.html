@@ -3,6 +3,7 @@
 {% set page_image = data.discordAvatar if data.discordAvatar else '/static/img/avatar.jpg' %}
 
 {% extends "master_template.html" %}
+{% set page_title = data.playerName %}
 {% block title %}{{ data.playerName }}{% endblock %}
 {% block head %}{% endblock %}
 {% block content %}
