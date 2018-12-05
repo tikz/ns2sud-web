@@ -104,8 +104,12 @@ def index():
 
 @app.route('/admin')
 def admin():
+    if not current_user.permissions:
+        return abort(404)
+
     if 'admin' not in current_user.permissions:
         return abort(404)
+
     last_notifications = models.Notification.query.order_by(
         models.Notification.date.desc()).limit(10)
     n_subs = len(models.Subscriber.query.all())
@@ -195,6 +199,7 @@ def player(steamid):
     data = {}
 
     with Database() as db:
+        # Fetch all query data first
         player_stats = db.execute(
             ns2plus_queries.PLAYER_STATS, steamid).fetchall()
         if not player_stats:
@@ -212,6 +217,7 @@ def player(steamid):
         player_wins = pd.DataFrame(db.execute(
             ns2plus_queries.PLAYER_WINS, steamid).fetchall())
 
+        # TODO: check formula
         data['steam_url'] = SteamID(
             int((data['steamId'] - 1) / 2), 1, 1, 0).community_url()
 
@@ -261,7 +267,9 @@ def kill_graph():
         players = {}
         links_i = []
         links_v = []
-        data = db.execute(ns2plus_queries.KILL_GRAPH).fetchall()
+        last_round_id = db.execute(ns2plus_queries.LAST_ROUND_ID).fetchone()
+        data = db.execute(ns2plus_queries.KILL_GRAPH,
+                          last_round_id - 30).fetchall()
         for r in data:
             kfId = r['killerSteamId']
             vId = r['victimSteamId']

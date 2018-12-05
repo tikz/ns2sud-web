@@ -1,6 +1,6 @@
 {% set page_title = data.playerName %}
-{% set page_description = 'Player stats' %}
-{% set page_image = data.discordAvatar if data.discordAvatar else '/static/img/avatar.jpg' %}
+{% set page_description = 'Match #' + data.roundId %}
+{% set page_image = data.background %}
 
 {% extends "master_template.html" %}
 {% block title %}{{ data.playerName }}{% endblock %}

@@ -31,4 +31,5 @@ UPDATE_DISCORD_DATA = 'update PlayerStats set discordId = %s, discordTag = %s, d
 NEW_PLAYERS = 'select ri.roundDate, prs.steamId from PlayerRoundStats prs inner join RoundInfo ri on ri.roundId = prs.roundId group by steamId order by ri.roundDate'
 
 MATCHES_WEEK = 'select roundId, roundDate from RoundInfo'
-KILL_GRAPH = 'select count(kf.victimSteamId) kills, killerSteamId, psk.playerName killerName, victimSteamId, psv.playerName victimName from KillFeed kf inner join PlayerStats psk on psk.steamId = kf.killerSteamId inner join PlayerStats psv on psv.steamId = kf.victimSteamId where roundId > 1990 group by killerSteamId, victimSteamId'
+LAST_ROUND_ID = 'select roundId from RoundInfo order by roundId desc limit 1'
+KILL_GRAPH = 'select count(kf.victimSteamId) kills, killerSteamId, psk.playerName killerName, victimSteamId, psv.playerName victimName from KillFeed kf inner join PlayerStats psk on psk.steamId = kf.killerSteamId inner join PlayerStats psv on psv.steamId = kf.victimSteamId where roundId > %s group by killerSteamId, victimSteamId'

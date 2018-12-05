@@ -135,7 +135,7 @@ d3.json("/stats/global/json/kill_graph").then(function (graph) {
 
   function unfocus() {
     labelNode.attr("display", "block");
-    node.style("opacity", 0.2);
+    node.style("opacity", 1);
     link.style("opacity", 0.2);
     link.style("fill", "#0062ff");
   }

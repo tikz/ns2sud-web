@@ -26,7 +26,7 @@
 
     <meta property="og:site_name" content="NS2 Sudamerica">
     <meta property="og:url" content="http://ns2sud.com">
-    <meta property="og:title" content="{{ page_title if page_title else 'Web' }}">
+    <meta property="og:title" content="{{ page_title if page_title else 'ns2sud.com' }}">
     <meta property="og:description" content="{{ page_description if page_description else ''}}">
     <meta property="og:type" content="website">
     <meta name="og:image" itemprop="image" content="{{ page_image if page_image else '/static/img/icon.png' }}">
@@ -103,13 +103,15 @@
                             </span>
                             Labs
                         </a> -->
-                        {% if current_user.is_authenticated and 'admin' in current_user.permissions %}
+                        {% if current_user.is_authenticated and current_user.permissions %}
+                        {% if 'admin' in current_user.permissions %}
                         <a class="navbar-item" href="/admin">
                             <span class="icon  is-medium">
                                 <i class="fas fa-gavel"></i>
                             </span>
                             Admin
                         </a>
+                        {% endif %}
                         {% endif %}
                         {% if not current_user.is_authenticated %}
                         <div class="buttons">
