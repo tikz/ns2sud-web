@@ -184,13 +184,13 @@ def match(roundid):
 
 
 @app.route('/stats')
-@cache.cached(timeout=30)
+@cache.cached(timeout=60)
 def stats():
     return render_template('stats.html')
 
 
 @app.route('/stats/player/<steamid>')
-@cache.cached(timeout=30)
+@cache.cached(timeout=60)
 def player(steamid):
     steamid = int(steamid)
     if not steamid:
@@ -300,7 +300,7 @@ def kill_graph():
 
 
 @app.route('/stats/json/<endpoint>')
-@cache.cached(timeout=30, key_prefix=make_cache_key)
+@cache.cached(timeout=60, key_prefix=make_cache_key)
 def stats_json(endpoint):
     allowed_endpoints = ["matches", "players"]
     if endpoint not in allowed_endpoints:
@@ -317,7 +317,7 @@ def stats_json(endpoint):
 
 
 @app.route('/stats/global/json/matches_week')
-@cache.cached(timeout=30)
+@cache.cached(timeout=60)
 def matches_week():
     with Database() as db:
         data = db.execute(ns2plus_queries.MATCHES_WEEK).fetchall()
@@ -332,7 +332,7 @@ def matches_week():
 
 
 @app.route('/stats/global/json/new_players')
-@cache.cached(timeout=30)
+@cache.cached(timeout=60)
 def new_players():
     with Database() as db:
         data = db.execute(ns2plus_queries.NEW_PLAYERS).fetchall()
