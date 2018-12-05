@@ -97,8 +97,6 @@ def get_stats(endpoint, filter, limit, page):
 
 @app.route('/')
 def index():
-    if current_user.is_anonymous:
-        return abort(404)
     matches = get_stats('matches', '', 8, 1)['result']
     return render_template('index.html', gameserver=gameserver_status(),
                            last_matches=matches)
@@ -192,7 +190,7 @@ def stats():
 
 
 @app.route('/stats/player/<steamid>')
-@cache.cached(timeout=1)
+@cache.cached(timeout=30)
 def player(steamid):
     steamid = int(steamid)
     if not steamid:
@@ -490,3 +488,8 @@ def sw():
 @app.route('/manifest.json')
 def manifest():
     return app.send_static_file('manifest.json')
+
+
+@app.route('/oembed.json')
+def oembed():
+    return app.send_static_file('oembed.json')

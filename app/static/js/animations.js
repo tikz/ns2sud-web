@@ -59,27 +59,30 @@ $('#hero-player-bg-wrapper').velocity("stop", true).velocity({
 
 
 $('a.navbar-item').click(function (e) {
-  e.preventDefault();
-  newLocation = this.href;
-  $('#black').velocity("stop", true).velocity({
-    "opacity": "1"
-  }, {
-      duration: 100,
-      easing: "linear"
-    });
+  if (!this.href.includes("#") && !window.location.href.includes("stats")) {
+    $('#black').velocity("stop", true).velocity({
+      "opacity": "1"
+    }, {
+        duration: 100,
+        easing: "linear"
+      });
 
-  $('#graph-chart, #hero-player-bg, #hero-user-link').velocity("stop", true).velocity({
-    "height": ["0px", "500px"]
-  }, {
-      duration: 500,
-      easing: "easeInSine"
-    });
+    $('#graph-chart, #hero-player-bg, #hero-user-link').velocity("stop", true).velocity({
+      "height": ["0px", "500px"]
+    }, {
+        duration: 500,
+        easing: "easeInSine"
+      });
 
-  $('.container, footer, .hero').velocity("stop", true).velocity({
-    "opacity": "0"
-  }, {
-      duration: 500,
-      easing: "linear",
-      complete: function () { window.location = newLocation; }
-    });
+    $('.container, footer, .hero').velocity("stop", true).velocity({
+      "opacity": "0"
+    }, {
+        duration: 500,
+        easing: "linear",
+        complete: function () { window.location = newLocation; }
+      });
+
+    e.preventDefault();
+    newLocation = this.href;
+  }
 });

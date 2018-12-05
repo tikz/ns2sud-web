@@ -2,9 +2,10 @@
 {% set page_title = 'Home' %}
 {% extends "master_template.html" %}
 {% block title %}Index{% endblock %}
-{% block content %}
+{% block head %}
+<link type="application/json+oembed" href="/oembed.json" />
 {% endblock %}
-{% block before_footer %}
+{% block content %}
 <div id="index-scroll-wrapper">
   <section class="section">
     <div class="container">
@@ -18,7 +19,7 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Format</th>
+                <th class="is-hidden-mobile">Format</th>
                 <th>Map</th>
                 <th class="is-hidden-mobile">Winner</th>
                 <th>Date</th>
@@ -28,7 +29,7 @@
               {% for match in last_matches %}
               <tr>
                 <th><a href="/stats/match/{{ match.roundId }}">{{ match.roundId }}</a></th>
-                <td>{{ match.maxPlayers1 }}v{{ match.maxPlayers2 }}</td>
+                <td class="is-hidden-mobile">{{ match.maxPlayers1 }}v{{ match.maxPlayers2 }}</td>
                 <td>{{ match.mapName }}</td>
                 <td class="is-hidden-mobile">{{ 'Marines' if match.winningTeam == 1 else 'Aliens' }}</td>
                 <td>{{ match.roundDateH }}</td>

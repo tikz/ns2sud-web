@@ -3,10 +3,13 @@ from flask_caching import Cache
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_humanize import Humanize
+from flask_minify import minify
 
 from app.config import Config
 
 app = Flask(__name__)
+
+minify(app=app)
 
 app.config.from_object(Config)
 
