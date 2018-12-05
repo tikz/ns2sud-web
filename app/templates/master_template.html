@@ -33,6 +33,7 @@
     <meta property="og:description" content="{{ page_description if page_description else ''}}">
     <meta property="og:type" content="website">
     <meta name="og:image" itemprop="image" content="{{ page_image if page_image else '/static/img/icon.png' }}">
+    <meta name="twitter:image" content="{{ page_image if page_image else '/static/img/icon.png' }}">
 
     {% block head %}{% endblock %}
 </head>
@@ -139,6 +140,9 @@
                                 </a>
                                 <a class="navbar-item" href="/user/kick">
                                     Kick myself
+                                </a>
+                                <a class="navbar-item" href="https://discord.gg/Hx68RRd">
+                                    Join our Discord
                                 </a>
                                 {% endif %}
                                 <a class="navbar-item" href="/logout">
