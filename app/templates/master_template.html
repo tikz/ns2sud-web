@@ -16,7 +16,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
-    
+
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
@@ -33,7 +33,7 @@
     <meta property="og:description" content="{{ page_description if page_description else ''}}">
     <meta property="og:type" content="website">
     <meta name="og:image" itemprop="image" content="{{ page_image if page_image else '/static/img/icon.png' }}">
-    
+
     {% block head %}{% endblock %}
 </head>
 
@@ -181,11 +181,13 @@
                         </div>
                     </div>
                     <div class="level-right">
-                        <p class="level-item"><a class="icon is-large colorless is-size-4" target="_blank" href="https://steamcommunity.com/groups/NS2SUD"><i
-                                    class="fab fa-steam"></i></a></p>
-                        <p class="level-item"><a class="icon is-large colorless is-size-4" target="_blank" href="https://discord.gg/Hx68RRd"><i
-                                    class="fab fa-discord"></i></a>
-                        </p>
+                        <nav class="level is-mobile">
+                            <p class="level-item"><a class="icon is-large colorless is-size-4" target="_blank" href="https://steamcommunity.com/groups/NS2SUD"><i
+                                        class="fab fa-steam"></i></a></p>
+                            <p class="level-item"><a class="icon is-large colorless is-size-4" target="_blank" href="https://discord.gg/Hx68RRd"><i
+                                        class="fab fa-discord"></i></a>
+                            </p>
+                        </nav>
                     </div>
                 </nav>
             </div>
@@ -224,7 +226,7 @@
 {% block include_js %}{% endblock %}
 
 {% if not lite %}
-<script src="/static/js/animations.js"></script>
+<!-- <script src="/static/js/animations.js"></script> -->
 {% endif %}
 
 </html>

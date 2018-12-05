@@ -7521,6 +7521,12 @@ a.colorless:hover {
   border-color: transparent;
   color: #fff; }
 
+.chart-container {
+  position: relative;
+  width: 99%;
+  height: 100px;
+  min-width: 0; }
+
 #graph_chart .links line {
   stroke: #0062ff;
   opacity: 0.2; }
