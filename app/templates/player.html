@@ -271,11 +271,11 @@
     <h2 class="title is-size-2">Charts</h2>
 
     <div class="columns">
-      <div class="column is-10">
+      <div class="column">
         {% if data.team1_winrate|length > 2 and data.team2_winrate|length > 2 %}
         <h3 class="title is-size-5">Winrate per team</h3>
         <h4 class="heading has-text-grey-light">Trailing 30 rounds</h4>
-        <div>
+        <div class="chart-container">
           <canvas id="winrate-chart" width="100%" height="176"></canvas>
         </div>
 
@@ -285,23 +285,22 @@
         {% if data.activity | length > 2 %}
         <h3 class="title is-size-5">Activity</h3>
         <h4 class="heading has-text-grey-light">Per week</h4>
-        <div>
+        <div class="chart-container">
           <canvas id="activity-chart" width="100%" height="176"></canvas>
         </div>
         {% endif %}
       </div>
-      <div class="column">
-
+      <div class="column is-2">
         {% if data.classes.Rifle|float > 0 %}
         <h3 class="title is-size-5">Weapons</h3>
-        <div>
+        <div class="chart-container">
           <canvas id="weapons-chart" width="100%" height="200"></canvas>
         </div>
         <hr />
         {% endif %}
         {% if data.classes.Skulk|float > 0 %}
         <h3 class="title is-size-5">Lifeforms</h3>
-        <div>
+        <div class="chart-container">
           <canvas id="lifeforms-chart" width="100%" height="200"></canvas>
         </div>
         {% endif %}

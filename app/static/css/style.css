@@ -7524,7 +7524,6 @@ a.colorless:hover {
 .chart-container {
   position: relative;
   width: 99%;
-  height: 100px;
   min-width: 0; }
 
 #graph_chart .links line {

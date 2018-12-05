@@ -190,7 +190,7 @@ def stats():
 
 
 @app.route('/stats/player/<steamid>')
-@cache.cached(timeout=30)
+@cache.cached(timeout=1)
 def player(steamid):
     steamid = int(steamid)
     if not steamid:
