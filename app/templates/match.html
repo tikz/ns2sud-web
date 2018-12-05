@@ -1,0 +1,67 @@
+{% set page_title = data.playerName %}
+{% set page_description = 'Player stats' %}
+{% set page_image = data.discordAvatar if data.discordAvatar else '/static/img/avatar.jpg' %}
+
+{% extends "master_template.html" %}
+{% block title %}{{ data.playerName }}{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+
+
+
+<section id="hero-header-section" class="section">
+  <section id="hero-header" class="hero" id="hero">
+    <div class="hero-head">
+      <div class="hero-header-black-wrapper">
+        <div class="hero-header-bg hero-header-bg-match" style="background-image: url({{ data.background }})"></div>
+      </div>
+    </div>
+    <div class="hero-body">
+      <div class="container">
+        <div>
+          <span class="is-size-1">{{ data.mapName }}</span>
+        </div>
+        <h2 class="has-text-grey-light">
+          <span class="icon">
+            <i class="fas fa-hashtag" aria-hidden="true"></i>
+          </span>
+          {{ data.roundId }}
+        </h2>
+        <h2 class="has-text-grey-light">
+          <span class="icon">
+            <i class="far fa-clock" aria-hidden="true"></i>
+          </span>
+          {{ (data.roundLength/60)|round|int }} mins
+        </h2>
+        <h2 class="has-text-grey-light">
+          <span class="icon">
+            <i class="far fa-calendar-alt" aria-hidden="true"></i>
+          </span>
+          {{ data.roundDate }}
+        </h2>
+      </div>
+    </div>
+  </section>
+</section>
+
+<section class="section">
+  <div class="container" id="main">
+
+    <!-- <h2 class="title is-size-2">Charts</h2>
+
+    <div class="columns">
+    </div> -->
+
+  </div>
+</section>
+{% endblock %}
+{% block include_js %}
+<script>
+  $("#black").velocity("stop", true).velocity({
+    opacity: "0.8",
+  }, {
+      duration: 3000,
+      easing: "linear"
+    });
+</script>
+{% endblock %}

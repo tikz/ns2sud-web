@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import datetime
 import logging
 import random
@@ -9,6 +7,7 @@ import numpy as np
 import pandas as pd
 import requests
 import json
+import os
 
 from flask import render_template, request, redirect, url_for, flash, abort, jsonify, Response
 from flask_login import login_user, logout_user, current_user
@@ -48,26 +47,76 @@ def gameserver_status():
     return gameserver
 
 
+def get_stats(endpoint, filter, limit, page):
+    response = {}
+
+    with Database() as db:
+        if endpoint == "matches":
+            query = ns2plus_queries.MATCHES
+            filters = [f'{filter}%', f'%{filter}%']
+        elif endpoint == "players":
+            query = ns2plus_queries.PLAYERS
+            filters = [f'%{filter}%']
+        else:
+            return abort(404)
+
+        limits = [(page - 1) * limit, limit]
+
+        data = db.execute(ns2plus_queries.limit(
+            query), filters + limits).fetchall()
+        total_count = db.execute(
+            ns2plus_queries.count(query), filters).fetchone()
+
+        # Specific parsing per endpoint
+        if endpoint == "matches":
+            for row in data:
+                m, s = divmod(row['roundLength'], 60)
+                h, m = divmod(m, 60)
+                row['roundLength'] = "%d:%02d:%02d" % (
+                    h, m, s) if h else "%02d:%02d" % (m, s)
+                row['roundDateH'] = naturaltime(datetime.datetime.strptime(
+                    row['roundDate'], '%Y-%m-%d %H:%M:%S'))
+        if endpoint == "players":
+            for row in data:
+                m, s = divmod(row['timePlayed'], 60)
+                h, m = divmod(m, 60)
+                row['timePlayed'] = "%d:%02d:%02d" % (h, m, s)
+                row['name_list'] = f'{row["name_list"][:15]}...'
+                row['lastSeenH'] = naturaltime(datetime.datetime.strptime(
+                    row['lastSeen'], '%Y-%m-%d %H:%M:%S'))
+
+        response['result'] = data
+
+    response['total_count'] = total_count
+    response['limit'] = limit
+    response['total_pages'] = 1 + total_count // limit
+    response['page'] = page
+
+    return response
+
+
 @app.route('/')
 def index():
-    if current_user.is_anonymous:
-        return abort(404)
-    return render_template('index.html', gameserver=gameserver_status())
-
-
-@app.route('/stats')
-@cache.cached(timeout=30)
-def stats():
-    return render_template('stats.html')
+    matches = get_stats('matches', '', 8, 1)['result']
+    return render_template('index.html', gameserver=gameserver_status(),
+                           last_matches=matches)
 
 
 @app.route('/admin')
 def admin():
+    if 'admin' not in current_user.permissions:
+        return abort(404)
     last_notifications = models.Notification.query.order_by(
         models.Notification.date.desc()).limit(10)
     n_subs = len(models.Subscriber.query.all())
 
-    return render_template('admin.html', last_notifications=last_notifications, n_subs=n_subs)
+    has_admin_access = [u.discord_tag for u in models.User.query.filter(
+        models.User.permissions.like("%admin%")).all()]
+    has_notification_access = [u.discord_tag for u in models.User.query.filter(
+        models.User.permissions.like("%notifications%")).all()]
+    return render_template('admin.html', last_notifications=last_notifications,
+                           n_subs=n_subs, has_admin_access=has_admin_access,
+                           has_notification_access=has_notification_access)
 
 
 @app.route('/admin/send_notification', methods=['POST'])
@@ -96,11 +145,49 @@ def send_notification():
             pass
 
     notification = models.Notification(
-        user=current_user, title=title, message=message, link=link, date=datetime.datetime.now())
+        user=current_user, title=title, message=message, link=link,
+        date=datetime.datetime.now())
     db.session.add(notification)
     db.session.commit()
 
     return redirect(url_for('admin'))
+
+
+@app.route('/stats/match/<roundid>')
+@cache.cached(timeout=60)
+def match(roundid):
+    roundid = int(roundid)
+    if not roundid:
+        return abort(404)
+
+    data = {}
+    with Database() as db:
+        round_info = db.execute(ns2plus_queries.ROUND_INFO, roundid).fetchall()
+        if not round_info:
+            return abort(404)
+
+        data.update(round_info[0])
+
+        path = 'static/img/map_screenshots/'
+        abs_path = os.path.join(os.path.dirname(__file__), path)
+        for file in os.listdir(abs_path):
+            if data['mapName'] in file:
+                data['background'] = '/' + path + file
+        if 'background' not in data:
+            data['background'] = '/' + path + 'default.jpg'
+
+    return render_template('match.html', data=data)
+
+
+@app.route('/stats')
+@cache.cached(timeout=1)
+def stats():
+    return render_template('stats.html')
+
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 
 @app.route('/stats/player/<steamid>')
@@ -138,20 +225,28 @@ def player(steamid):
             df = player_wins[player_wins['teamNumber'] == team]
             shift = 30 - len(df) % 30
             df = df.groupby((np.arange(len(df)) + shift) //
-                            30).agg({'win': ['sum', 'count'], 'roundDate': ['last']})
+                            30).agg({'win': ['sum', 'count'],
+                                     'roundDate': ['last']})
             if len(df):
                 df['winrate'] = df[('win', 'sum')] / df[('win', 'count')]
                 data[f'team{team}_winrate'] = [
                     {'x': p[2], 'y': int(p[3] * 100)} for p in df.values]
 
         # Activity chart
-        q = db.execute(ns2plus_queries.PLAYER_ACTIVITY, steamid).fetchall()
-        df = pd.DataFrame(q)
-        df['Datetime'] = pd.to_datetime(df['roundDate'])
-        df = df.set_index('Datetime')
-        df = df.hoursPlayed.resample('W').sum()
-        data['activity'] = [{'x': x.to_pydatetime().strftime('%Y-%m-%d %H:%M:%S'), 'y': '%.2f' % y}
-                            for x, y in zip(list(df.index), list(df.values))]
+        q = [(ns2plus_queries.PLAYER_ACTIVITY, 'activity', steamid),
+             (ns2plus_queries.SERVER_ACTIVITY, 'server_activity', None)]
+        for query, key, arg in q:
+            if arg:
+                q = db.execute(query, arg).fetchall()
+            else:
+                q = db.execute(query).fetchall()
+            df = pd.DataFrame(q)
+            df['Datetime'] = pd.to_datetime(df['roundDate'])
+            df = df.set_index('Datetime')
+            df = df.hoursPlayed.resample('W').sum()
+            data[key] = [{'x': x.to_pydatetime().strftime('%Y-%m-%d %H:%M:%S'),
+                          'y': '%.2f' % y}
+                         for x, y in zip(list(df.index), list(df.values))]
 
         # Class time chart
         q = db.execute(ns2plus_queries.PLAYER_CLASSTIME, steamid).fetchall()
@@ -162,6 +257,43 @@ def player(steamid):
         data['lifeform'] = max(lifeforms_time, key=lambda x: x[1])[0]
 
     return render_template('player.html', data=data)
+
+
+@app.route('/stats/global/json/kill_graph')
+@cache.cached(timeout=1)
+def kill_graph():
+    with Database() as db:
+        players = {}
+        links_i = []
+        links_v = []
+        data = db.execute(ns2plus_queries.KILL_GRAPH).fetchall()
+        for r in data:
+            kfId = r['killerSteamId']
+            vId = r['victimSteamId']
+            kills = r['kills']
+            if kfId not in players:
+                players[kfId] = r['killerName']
+            if vId not in players:
+                players[vId] = r['victimName']
+
+            if (kfId, vId) not in links_i and (vId, kfId) not in links_i:
+                links_i.append((kfId, vId))
+                links_v.append(kills)
+            else:
+                for pair in [(kfId, vId), (vId, kfId)]:
+                    try:
+                        i = links_i.index(pair)
+                    except:
+                        pass
+                    else:
+                        links_v[i] += kills
+    response = {
+        'nodes': [{'id': k, 'name': v} for k, v in players.items()],
+        'links': [{'source': link[0], 'target':link[1], 'value':links_v[i]}
+                  for i, link in enumerate(links_i)]
+
+    }
+    return jsonify(response)
 
 
 @app.route('/stats/json/<endpoint>')
@@ -175,49 +307,8 @@ def stats_json(endpoint):
     filter = args.get('filter') if args.get('filter') else ''
     limit = int(args.get('limit')) if args.get('limit') else 10
     page = int(args.get('page')) if args.get('page') else 1
-    # input is sanitized when using pymysql prepared statements
 
-    response = {}
-
-    with Database() as db:
-        if endpoint == "matches":
-            query = ns2plus_queries.MATCHES
-            filters = [f'{filter}%', f'%{filter}%']
-        elif endpoint == "players":
-            query = ns2plus_queries.PLAYERS
-            filters = [f'%{filter}%']
-        else:
-            return abort(404)
-
-        limits = [(page - 1) * limit, limit]
-
-        data = db.execute(ns2plus_queries.limit(
-            query), filters + limits).fetchall()
-        total_count = db.execute(
-            ns2plus_queries.count(query), filters).fetchone()
-
-        # Specific parsing per endpoint
-        if endpoint == "matches":
-            for row in data:
-                m, s = divmod(row['roundLength'], 60)
-                h, m = divmod(m, 60)
-                row['roundLength'] = "%d:%02d:%02d" % (
-                    h, m, s) if h else "%02d:%02d" % (m, s)
-        if endpoint == "players":
-            for row in data:
-                m, s = divmod(row['timePlayed'], 60)
-                h, m = divmod(m, 60)
-                row['timePlayed'] = "%d:%02d:%02d" % (h, m, s)
-                row['name_list'] = f'{row["name_list"][:15]}...'
-                row['lastSeenH'] = naturaltime(datetime.datetime.strptime(
-                    row['lastSeen'], '%Y-%m-%d %H:%M:%S'))
-
-        response['result'] = data
-
-    response['total_count'] = total_count
-    response['limit'] = limit
-    response['total_pages'] = 1 + total_count // limit
-    response['page'] = page
+    response = get_stats(endpoint, filter, limit, page)
 
     return jsonify(response)
 
@@ -231,7 +322,8 @@ def matches_week():
         df['Datetime'] = pd.to_datetime(df['roundDate'])
         df = df.set_index('Datetime')
         df = df.roundId.resample('W').count()
-        response = [{'x': x.to_pydatetime().strftime('%Y-%m-%d %H:%M:%S'), 'y': int(y)}
+        response = [{'x': x.to_pydatetime().strftime('%Y-%m-%d %H:%M:%S'),
+                     'y': int(y)}
                     for x, y in zip(list(df.index), list(df.values))]
         return jsonify(response)
 
@@ -245,7 +337,8 @@ def new_players():
         df['Datetime'] = pd.to_datetime(df['roundDate'])
         df = df.set_index('Datetime')
         df = df.steamId.resample('W').count()
-        response = [{'x': x.to_pydatetime().strftime('%Y-%m-%d %H:%M:%S'), 'y': int(y)}
+        response = [{'x': x.to_pydatetime().strftime('%Y-%m-%d %H:%M:%S'),
+                     'y': int(y)}
                     for x, y in zip(list(df.index), list(df.values))]
         return jsonify(response)
 
@@ -294,7 +387,8 @@ def kick():
     try:
         params = {
             'request': 'json',
-            'command': 'Send', 'rcon': f'sv_kick {current_user.ns2_id} Crash (kick requested from web)'
+            'command': 'Send',
+            'rcon': f'sv_kick {current_user.ns2_id} Crash (kick requested from web)'
         }
         requests.get(app.config['GAMESERVER_WEB_HOST'],
                      auth=auth, params=params).json()
@@ -324,7 +418,8 @@ def oauth_callback():
             token_exists = models.User.query.filter_by(token=token).first()
             if not token_exists:
                 break
-        user = models.User(discord_id=discord_id, discord_tag=discord_tag, discord_avatar=discord_avatar,
+        user = models.User(discord_id=discord_id, discord_tag=discord_tag,
+                           discord_avatar=discord_avatar,
                            discord_locale=discord_locale,
                            created=datetime.datetime.now(), token=token)
         db.session.add(user)
@@ -380,9 +475,8 @@ def notifications_unsubscribe():
             return jsonify({'success': True})
     return jsonify({'success': False})
 
-# Static files that require root endpoint
 
-
+# Static files that need root path
 @app.route('/sw.js')
 def sw():
     return app.send_static_file('js/sw.js')

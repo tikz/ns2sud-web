@@ -11,11 +11,11 @@
 <section class="section">
   <div class="container" id="main">
     <h1 class="title is-size-1 has-text-danger">Administración</h1>
-
+    {% if current_user.discord_tag in has_notification_access %}
     <div class="columns">
       <div class="column">
         <h1 class="is-size-4">Notificaciones</h1>
-        <p class="has-text-grey is-size-7">Acceso: <b>Tik#4096, Mahadon#2021</b></p>
+        <p class="has-text-grey is-size-7">Acceso: <b>{{ ', '.join(has_notification_access) }}</b></p>
         <hr>
         <table class="table is-fullwidth">
           <thead>
@@ -97,6 +97,7 @@
         </form>
       </div>
     </div>
+    {% endif %}
 
   </div>
 </section>

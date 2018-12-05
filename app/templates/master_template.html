@@ -62,12 +62,12 @@
                             </span>
                             Home
                         </a>
-                        <a class="navbar-item">
+                        <!-- <a class="navbar-item">
                             <span class="icon  is-medium">
                                 <i class="fas fa-pencil-alt"></i>
                             </span>
                             Comics
-                        </a>
+                        </a> -->
                         <a class="navbar-item" href="{% if "/stats#" not in request.path %}/stats#/players/1{% endif
                             %}">
                             <span class="icon  is-medium">
@@ -97,25 +97,29 @@
                                 </a>
                             </div>
                         </div>
-                        <a class="navbar-item">
+                        <!-- <a class="navbar-item">
                             <span class="icon  is-medium">
                                 <i class="fas fa-flask"></i>
                             </span>
                             Labs
-                        </a>
+                        </a> -->
+                        {% if current_user.is_authenticated and 'admin' in current_user.permissions %}
                         <a class="navbar-item" href="/admin">
                             <span class="icon  is-medium">
                                 <i class="fas fa-gavel"></i>
                             </span>
                             Admin
                         </a>
+                        {% endif %}
                         {% if not current_user.is_authenticated %}
-                        <a class="navbar-item" href="/login">
-                            <span class="icon  is-medium">
-                                <i class="fas fa-sign-in-alt"></i>
-                            </span>
-                            Login
-                        </a>
+                        <div class="buttons">
+                            <a class="navbar-item button is-discord" href="/login">
+                                <span class="icon">
+                                    <i class="fab fa-discord"></i>
+                                </span>
+                                <span>Login with Discord</span>
+                            </a>
+                        </div>
                         {% endif %}
                     </div>
                     <div class="navbar-end">
@@ -161,31 +165,33 @@
     {% if not lite %}
     <footer class="footer">
         {% block prefooter %}{% endblock %}
-        <div class="container">
-            <nav class="level is-mobile">
-                <div class="level-left">
-                    <div class="level-item">
-                        <p>
-                            Art by <a href="">Mahadon</a>. Web design by <a href="">Tik</a>.</p>
+        <section class="section">
+            <div class="container">
+                <nav class="level is-mobile">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p>
+                                Art by <a href="">Mahadon</a>. Web design by <a href="">Tik</a>.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="level-right">
-                    <p class="level-item"><a class="icon is-large colorless is-size-4" target="_blank" href="https://steamcommunity.com/groups/NS2SUD"><i
-                                class="fab fa-steam"></i></a></p>
-                    <p class="level-item"><a class="icon is-large colorless is-size-4" target="_blank" href="https://discord.gg/Hx68RRd"><i
-                                class="fab fa-discord"></i></a>
-                    </p>
-                </div>
-            </nav>
-        </div>
+                    <div class="level-right">
+                        <p class="level-item"><a class="icon is-large colorless is-size-4" target="_blank" href="https://steamcommunity.com/groups/NS2SUD"><i
+                                    class="fab fa-steam"></i></a></p>
+                        <p class="level-item"><a class="icon is-large colorless is-size-4" target="_blank" href="https://discord.gg/Hx68RRd"><i
+                                    class="fab fa-discord"></i></a>
+                        </p>
+                    </div>
+                </nav>
+            </div>
+        </section>
     </footer>
     {% endif %}
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-<script src="/static/js/chartjs-plugin-annotation.min.js"></script>
+<script src="/static/js/ext/jquery-3.3.1.min.js"></script>
+<script src="/static/js/ext/velocity.min.js"></script>
+<script src="/static/js/ext/axios.min.js"></script>
+<script src="/static/js/ext/chart.bundle.min.js"></script>
+<script src="/static/js/ext/chartjs-plugin-annotation.min.js"></script>
 {% if has_loading %}
 <script language="javascript" type="text/javascript">
     $(window).on("load", function () {
@@ -200,13 +206,14 @@
             $(".navbar-menu").toggleClass("is-active");
         });
     });
-
+    {% if not lite %}
     $("#black").velocity({
         opacity: "0.3",
     }, {
             duration: 3000,
             easing: "linear"
         });
+    {% endif %}
 </script>
 {% block include_js %}{% endblock %}
 

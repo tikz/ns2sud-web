@@ -79,7 +79,6 @@ $tooltip-max-width: 300px;
 @import "../bulma/sass/ext/bulma-switch.sass";
 
 
-
 html {
 height: 100%;
 }
@@ -131,21 +130,13 @@ border: solid 1px $grey-border;
 .footer {
 background-color: transparent !important;
 background-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1));
-pointer-events: none;
 flex-shrink: 0;
 padding: 0;
-}
-
-.footer .container {
-pointer-events: all;
-z-index: 3;
-margin-top: -48px;
 }
 
 .footer .level-left {
   padding-top: 15px;
   }
-
 
 a.colorless {
 color:inherit;
@@ -201,19 +192,36 @@ opacity: 0.5;
 mix-blend-mode: hard-light;
 }
 
-#graph_chart .link {
-stroke: #009dff;
+.button.is-discord {
+  background-color: #7289da;
+  border-color: transparent;
+  color: #fff;
+}
+
+.button.is-discord:hover {
+  background-color: #677bc4;
+  border-color: transparent;
+  color: #fff;
+}
+
+#graph_chart .links line {
+stroke: #0062ff;
 opacity:0.2;
-mix-blend-mode: hard-light;
 }
 
-#graph_chart .node text {
-fill:#6a9fba;
+#graph_chart .labelNodes text {
+fill:#6a9fba !important;
 cursor:pointer;
-mix-blend-mode: screen;
+font-size:  16px !important;
+paint-order: stroke;
+stroke: #000000;
+stroke-width: 1px;
+stroke-linecap: butt;
+stroke-linejoin: miter;
+font-weight: 400;
 }
 
-#graph_chart .node circle {
+#graph_chart .nodes circle {
 stroke:#fff;
 stroke-width:2px;
 fill:#56c6ff;
@@ -225,7 +233,7 @@ left: 0px;
 right: 0px;
 top: 0px;
 bottom: 0px;
-background-color: rgba(0, 0, 0, 0.3);
+background-color: rgba(0, 0, 0, 0.6);
 padding: 0px;
 }
 
@@ -298,6 +306,7 @@ position:relative;
 width: 1030px;
 height: 525px;
 margin: 0 auto;
+margin-bottom: -9rem;
 }
 
 #index-scroll-wrapper {
@@ -349,19 +358,24 @@ background-size: cover;
   box-shadow: 0px 0px 30px #000;
 }
 
-#hero-user-link .hero-footer {
-  padding: 90px;
+#hero-header-section {
+  min-height: 380px;
 }
 
-#hero-user-link-bg {
+#hero-header .hero-header-bg {
 display: block;
 position: absolute;
 top:0;
 left:0;
 width:100%;
 height:500px;
-background: url(/static/img/hero-bg.jpg) no-repeat;
 background-size: cover;
+background-position: center center;
+border-bottom: solid 1px $grey-border;
+}
+
+.hero-header-bg-user-link {
+background: url(/static/img/hero-bg-user.jpg) no-repeat;
 background-position: top center;
 }
 
@@ -371,7 +385,7 @@ background-position: top center;
   box-shadow: 0px 0px 30px #000;
 }
 
-#hero-player-bg-wrapper {
+.hero-header-black-wrapper {
   height:500px;
   width:100%;
   position:absolute;
@@ -381,14 +395,18 @@ background-position: top center;
   box-shadow: 10px 0px 10px #000;
 }
 
-#hero-player-bg {
-  background-size: cover;
-  height:100%;
-  width:100%;
+.hero-header-bg-player {
   filter: blur(30px);
   opacity: 0.6;
-  background-position: center center;
-  position:relative;
+}
+
+.hero-header-bg-match {
+  filter: blur(3px);
+  opacity: 0.6;
+}
+
+.hero-body-player {
+  padding-top: 35px;
 }
 
 #hero-player-content {

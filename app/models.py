@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     steam_url = db.Column(db.String(255))
     token = db.Column(db.String(255))
     token_used = db.Column(db.DateTime())
+    permissions = db.Column(db.String(255))
 
 
 class Subscriber(db.Model):

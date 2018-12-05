@@ -12,7 +12,7 @@
     <div class="hero-foot no-pointer">
       <div class="container">
         <h1 class="title">Stats</h1>
-        <h2 class="title is-size-5">Kills between players of the last 50 matches.</h2>
+        <h2 class="title is-size-5">Kills between players of the last 30 matches.</h2>
       </div>
     </div>
   </section>
@@ -68,7 +68,7 @@
       <tbody>
         <tr v-for="match in data">
           <th>
-            <a href="#">{{ match.roundId }}</a>
+              <a v-bind:href="'/stats/match/'+match.roundId">{{ match.roundId }}</a>
           </th>
           <td>{{ match.roundDate }}</td>
           <td>{{ match.maxPlayers1 }}v{{ match.maxPlayers2 }}</td>
@@ -157,11 +157,10 @@
   </div>
 </div>
 </script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="/static/js/ext/d3.min.js"></script>
 <script src="/static/js/graph_chart.js"></script>
-<!-- development version, includes helpful console warnings -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-router"></script>
+<script src="/static/js/ext/vue.min.js"></script>
+<script src="/static/js/ext/vue-router.min.js"></script>
 <script type="text/javascript">
   const tabMatches = Vue.component('tab-matches', {
     template: '#matches-template',
