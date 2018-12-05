@@ -172,6 +172,7 @@ height: 184px;
 background: url(/static/img/discord.png) no-repeat;
 position: absolute;
 top: -55px;
+right: -80px;
 }
 
 #discord a {
@@ -192,7 +193,17 @@ opacity: 0.5;
 mix-blend-mode: hard-light;
 }
 
+.navbar-link-user figure {
+  @include until($desktop) {
+    vertical-align: middle;
+    display: inline-block;
+  }
+}
+
 .button.is-discord {
+  @include until($desktop) {
+    margin: 0.75rem 1rem;
+  }
   background-color: #7289da;
   border-color: transparent;
   color: #fff;

@@ -7493,7 +7493,8 @@ a.colorless:hover {
   height: 184px;
   background: url(/static/img/discord.png) no-repeat;
   position: absolute;
-  top: -55px; }
+  top: -55px;
+  right: -80px; }
 
 #discord a {
   display: block;
@@ -7511,10 +7512,18 @@ a.colorless:hover {
   opacity: 0.5;
   mix-blend-mode: hard-light; }
 
+@media screen and (max-width: 1087px) {
+  .navbar-link-user figure {
+    vertical-align: middle;
+    display: inline-block; } }
+
 .button.is-discord {
   background-color: #7289da;
   border-color: transparent;
   color: #fff; }
+  @media screen and (max-width: 1087px) {
+    .button.is-discord {
+      margin: 0.75rem 1rem; } }
 
 .button.is-discord:hover {
   background-color: #677bc4;

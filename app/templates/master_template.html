@@ -119,7 +119,7 @@
                         {% endif %}
                         {% if not current_user.is_authenticated %}
                         <div class="buttons">
-                            <a class="navbar-item button is-discord" href="/login">
+                            <a class="button is-discord" href="/login">
                                 <span class="icon">
                                     <i class="fab fa-discord"></i>
                                 </span>
@@ -136,7 +136,7 @@
                         </div>
                         {% else %}
                         <div class="navbar-item has-dropdown is-hoverable">
-                            <a class="navbar-link">
+                            <a class="navbar-link navbar-link-user">
                                 <figure class="image is-32x32">
                                     <img class="is-rounded" src="{{ current_user.discord_avatar }}">
                                 </figure>
@@ -226,7 +226,7 @@
 {% block include_js %}{% endblock %}
 
 {% if not lite %}
-<script src="/static/js/animations.js"></script>
+<!-- <script src="/static/js/animations.js"></script> -->
 {% endif %}
 
 </html>
