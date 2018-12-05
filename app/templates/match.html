@@ -1,5 +1,5 @@
 {% set page_title = data.playerName %}
-{% set page_description = 'Match #' + data.roundId %}
+{% set page_description = 'Match #' + data.roundId|string %}
 {% set page_image = data.background %}
 
 {% extends "master_template.html" %}
