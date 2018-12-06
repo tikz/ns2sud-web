@@ -192,16 +192,12 @@ const tabPlayers = Vue.component('tab-players', {
                 }
             })
                 .then(function (response) {
-                    if (response.data.result.length == 0) {
-                        vueParent.currentPage = 1;
-                    } else {
-                        if (req_filter == vueParent.filter) {
-                            vueParent.data = response.data.result;
-                            vueParent.totalPages = response.data.total_pages;
-                            vueParent.currentPage = response.data.page;
-                            vueParent.loading = false;
-                        }
+                    if (req_filter == vueParent.filter) {
+                        vueParent.data = response.data.result;
+                        vueParent.totalPages = response.data.total_pages;
+                        vueParent.currentPage = response.data.page;
                     }
+                    vueParent.loading = false;
                 })
                 .catch(function (error) {
                     console.log(error);
