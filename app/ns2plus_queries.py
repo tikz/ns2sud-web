@@ -24,7 +24,7 @@ ROUND_INFO = 'select * from RoundInfo where roundId = %s'
 
 MATCHES = 'select * from RoundInfo where roundId like %s or mapName like %s order by roundDate desc'
 
-PLAYERS = 'select * from (select ps.steamId, ps.playerName, ps.hiveSkill, ps.timePlayed, ps.lastSeen, GROUP_CONCAT(DISTINCT prs.playerName SEPARATOR ", " ) as name_list, discordAvatar from PlayerStats ps LEFT JOIN PlayerRoundStats prs on prs.steamId = ps.steamId group by ps.steamId order by ps.lastSeen desc) players where name_list like %s'
+PLAYERS = 'select * from (select ps.steamId, ps.playerName, ps.hiveSkill, ps.timePlayed, ps.lastSeen, GROUP_CONCAT(DISTINCT prs.playerName SEPARATOR "," ) as name_list, discordAvatar from PlayerStats ps LEFT JOIN PlayerRoundStats prs on prs.steamId = ps.steamId group by ps.steamId order by ps.lastSeen desc) players where name_list like %s or steamId like %s'
 
 UPDATE_DISCORD_DATA = 'update PlayerStats set discordId = %s, discordTag = %s, discordAvatar = %s where steamId = %s'
 

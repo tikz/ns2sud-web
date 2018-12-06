@@ -56,7 +56,7 @@ def get_stats(endpoint, filter, limit, page):
             filters = [f'{filter}%', f'%{filter}%']
         elif endpoint == "players":
             query = ns2plus_queries.PLAYERS
-            filters = [f'%{filter}%']
+            filters = [f'%{filter}%', f'%{filter}%']
         else:
             return abort(404)
 
@@ -81,7 +81,22 @@ def get_stats(endpoint, filter, limit, page):
                 m, s = divmod(row['timePlayed'], 60)
                 h, m = divmod(m, 60)
                 row['timePlayed'] = "%d:%02d:%02d" % (h, m, s)
-                row['name_list'] = f'{row["name_list"][:15]}...'
+
+                # Fix because some players in ns2plus tables
+                # are in PlayerStats but not in PlayerRoundStats
+                # for some reason
+                if row["name_list"]:
+                    name_list = row["name_list"].split(',')
+                else:
+                    name_list = [row["playerName"]]
+
+                name_list = ', '.join(name_list)
+
+                if len(name_list) > 15:
+                    name_list = name_list[:15] + '...'
+
+                row["name_list"] = name_list
+
                 row['lastSeenH'] = naturaltime(datetime.datetime.strptime(
                     row['lastSeen'], '%Y-%m-%d %H:%M:%S'))
 
@@ -89,7 +104,8 @@ def get_stats(endpoint, filter, limit, page):
 
     response['total_count'] = total_count
     response['limit'] = limit
-    response['total_pages'] = 1 + total_count // limit
+    p_offset = 1 if total_count % limit else 0
+    response['total_pages'] = p_offset + total_count // limit
     response['page'] = page
 
     return response
