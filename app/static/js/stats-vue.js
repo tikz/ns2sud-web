@@ -2,7 +2,7 @@ const tabMatches = Vue.component('tab-matches', {
     template: `
     <div id="matches">
         <div class="control has-icons-left has-icons-right">
-        <input class="input is-large" type="email" placeholder="Filter by match id or map" v-model="filter">
+        <input class="input is-large" v-bind:class="{ 'is-danger': noResults }" type="email" placeholder="Filter by match id or map" v-model="filter">
         <span class="icon is-medium is-left">
             <i class="fas fa-filter"></i>
         </span>
@@ -61,7 +61,8 @@ const tabMatches = Vue.component('tab-matches', {
             filter: '',
             jsonEndpoint: '/stats/json/matches',
             loading: true,
-            init: false
+            init: false,
+            noResults: false
         }
     },
     watch: {
@@ -69,7 +70,6 @@ const tabMatches = Vue.component('tab-matches', {
             if (this.init) {
                 router.replace({ name: 'matches', params: { filter: this.filter, page: this.currentPage } })
                 if (newFilter != oldFilter) {
-                    console.log('filter changed')
                     this.currentPage = 1;
                 }
                 this.getData(this.currentPage);
@@ -99,6 +99,7 @@ const tabMatches = Vue.component('tab-matches', {
                         vueParent.totalPages = response.data.total_pages;
                         vueParent.currentPage = response.data.page;
                         vueParent.loading = false;
+                        vueParent.noResults = (response.data.result.length > 0) ? false : true;
                     }
                 })
                 .catch(function (error) {
@@ -116,7 +117,7 @@ const tabPlayers = Vue.component('tab-players', {
     template: `
     <div id="players">
         <div class="control has-icons-left has-icons-right">
-            <input class="input is-large" type="email" placeholder="Filter by player name" v-model="filter">
+            <input class="input is-large" v-bind:class="{ 'is-danger': noResults }" type="email" placeholder="Filter by name or NS2ID" v-model="filter">
             <span class="icon is-medium is-left">
                 <i class="fas fa-filter"></i>
             </span>
@@ -177,7 +178,8 @@ const tabPlayers = Vue.component('tab-players', {
             filter: '',
             jsonEndpoint: '/stats/json/players',
             loading: true,
-            init: false
+            init: false,
+            noResults: false
         }
     },
     watch: {
@@ -185,7 +187,6 @@ const tabPlayers = Vue.component('tab-players', {
             if (this.init) {
                 router.replace({ name: 'players', params: { filter: this.filter, page: this.currentPage } })
                 if (newFilter != oldFilter) {
-                    console.log('filter changed')
                     this.currentPage = 1;
                 }
                 this.getData(this.currentPage);
@@ -215,6 +216,7 @@ const tabPlayers = Vue.component('tab-players', {
                         vueParent.totalPages = response.data.total_pages;
                         vueParent.currentPage = response.data.page;
                         vueParent.loading = false;
+                        vueParent.noResults = (response.data.result.length > 0) ? false : true;
                     }
                 })
                 .catch(function (error) {
