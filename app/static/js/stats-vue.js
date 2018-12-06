@@ -66,7 +66,7 @@ const tabMatches = Vue.component('tab-matches', {
     watch: {
         filter: function () {
             router.replace({ name: 'matches', params: { filter: this.filter, page: this.currentPage } })
-            this.getData(1);
+            this.getData(this.currentPage);
         },
         currentPage: function () {
             router.replace({ name: 'matches', params: { filter: this.filter, page: this.currentPage } })
@@ -90,6 +90,9 @@ const tabMatches = Vue.component('tab-matches', {
                         vueParent.totalPages = response.data.total_pages;
                         vueParent.currentPage = response.data.page;
                         vueParent.loading = false;
+                        if (response.data.result.length == 0) {
+                            vueParent.currentPage = 1;
+                        }
                     }
                 })
                 .catch(function (error) {
@@ -100,7 +103,7 @@ const tabMatches = Vue.component('tab-matches', {
     created: function () {
         this.filter = this.$route.params.filter;
         this.currentPage = this.$route.params.page;
-        this.getData(1);
+        this.getData(this.currentPage);
     }
 })
 const tabPlayers = Vue.component('tab-players', {
@@ -196,8 +199,11 @@ const tabPlayers = Vue.component('tab-players', {
                         vueParent.data = response.data.result;
                         vueParent.totalPages = response.data.total_pages;
                         vueParent.currentPage = response.data.page;
+                        vueParent.loading = false;
+                        if (response.data.result.length == 0) {
+                            vueParent.currentPage = 1;
+                        }
                     }
-                    vueParent.loading = false;
                 })
                 .catch(function (error) {
                     console.log(error);
