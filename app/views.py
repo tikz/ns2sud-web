@@ -460,7 +460,7 @@ def oauth_callback():
         db.session.add(user)
         db.session.commit()
     login_user(user, True)
-    return redirect(url_for('index'))
+    return redirect(url_for('user'))
 
 
 @app.route('/logout')
