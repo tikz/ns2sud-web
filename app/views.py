@@ -78,7 +78,8 @@ def get_stats(endpoint, filter, limit, page):
                     row['roundDate'], '%Y-%m-%d %H:%M:%S'))
         if endpoint == "players":
             for row in data:
-                m, s = divmod(row['timePlayed'], 60)
+                time_played = row['timePlayed'] if row['timePlayed'] else 0
+                m, s = divmod(time_played, 60)
                 h, m = divmod(m, 60)
                 row['timePlayed'] = "%d:%02d:%02d" % (h, m, s)
 
