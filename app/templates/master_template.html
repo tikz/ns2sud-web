@@ -35,6 +35,15 @@
     <meta name="og:image" itemprop="image" content="{{ page_image if page_image else '/static/img/icon.png' }}">
     <meta name="twitter:image" content="{{ page_image if page_image else '/static/img/icon.png' }}">
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130793544-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-130793544-1');
+    </script>
+
     {% block head %}{% endblock %}
 </head>
 
