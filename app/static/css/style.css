@@ -7659,12 +7659,17 @@ hr {
 #blackboard ol, #blackboard h1 {
   opacity: 0.8; }
 
-#waifu {
+#instructor {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: url(/static/img/waifu.png) no-repeat;
   background-size: cover; }
+
+.waifu {
+  background: url(/static/img/waifu.png) no-repeat; }
+
+.mantecoso {
+  background: url(/static/img/mantecoso.png) no-repeat; }
 
 #students {
   position: absolute;
@@ -7725,6 +7730,9 @@ hr {
 
 #hero-player-content {
   z-index: 99; }
+
+#language-selector {
+  display: block; }
 
 #loading {
   background-color: #232830;

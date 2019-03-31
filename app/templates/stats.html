@@ -12,32 +12,30 @@
     </div>
     <div class="hero-foot no-pointer">
       <div class="container">
-        <h1 class="title">Stats</h1>
-        <h2 class="title is-size-5">Kills between players of the last 10 matches.</h2>
+        <h1 class="title">{{_('Stats')}}</h1>
+        <h2 class="title is-size-5">{{_('Kills between players of the last 10 matches.')}}</h2>
       </div>
     </div>
   </section>
   <div class="container" id="stats-container">
     <div id="main">
-      {% raw %}
       <div class="tabs is-toggle is-fullwidth is-large">
         <ul>
           <router-link to="/matches" tag="li">
             <a>
               <span class="icon"><i class="far fa-map"></i></span>
-              <span>Matches</span>
+              <span>{{_('Matches')}}</span>
             </a>
           </router-link>
           <router-link to="/players" tag="li">
             <a>
               <span class="icon"><i class="far fa-user-circle"></i></span>
-              <span>Players</span>
+              <span>{{_('Players')}}</span>
             </a>
           </router-link>
         </ul>
       </div>
       <router-view></router-view>
-      {% endraw %}
     </div>
   </div>
 </section>

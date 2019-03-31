@@ -15,6 +15,7 @@ colorama==0.4.0
 cryptography==2.3.1
 docopt==0.6.2
 Flask==1.0.2
+Flask-Babel==0.12.2
 Flask-BabelEx==0.9.3
 Flask-Caching==1.4.0
 Flask-Humanize==0.3.0

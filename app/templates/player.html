@@ -55,7 +55,7 @@
             <nav class="level full-height">
               <div class="level-item has-text-centered">
                 <div>
-                  <p class="heading">Rounds Played</p>
+                  <p class="heading">{{_('Rounds Played')}}</p>
                   <p class="title">{{ data.roundsPlayed }}</p>
                 </div>
               </div>
@@ -123,7 +123,7 @@
           {% if data.team1_winrate %}
           <div class="level-item has-text-centered">
             <div>
-              <p class="heading">Recent Marine Winrate</p>
+              <p class="heading">{{_('Recent Marine Winrate')}}</p>
               <p class="title">{{ data.team1_winrate[-1]['y'] }}%</p>
             </div>
           </div>
@@ -131,7 +131,7 @@
           {% if data.team2_winrate %}
           <div class="level-item has-text-centered">
             <div>
-              <p class="heading">Recent Alien Winrate</p>
+              <p class="heading">{{_('Recent Alien Winrate')}}</p>
               <p class="title">{{ data.team2_winrate[-1]['y'] }}%</p>
             </div>
           </div>
@@ -183,7 +183,7 @@
         <nav class="level full-height">
           <div class="level-item has-text-centered">
             <div>
-              <p class="heading">Rounds Played</p>
+              <p class="heading">{{_('Rounds Played')}}</p>
               <p class="title">{{ data.roundsPlayed }}</p>
             </div>
           </div>
@@ -250,7 +250,7 @@
       {% if data.team1_winrate %}
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">Recent Marine Winrate</p>
+          <p class="heading">{{_('Recent Marine Winrate')}}</p>
           <p class="title">{{ data.team1_winrate[-1]['y'] }}%</p>
         </div>
       </div>
@@ -258,7 +258,7 @@
       {% if data.team2_winrate %}
       <div class="level-item has-text-centered">
         <div>
-          <p class="heading">Recent Alien Winrate</p>
+          <p class="heading">{{_('Recent Alien Winrate')}}</p>
           <p class="title">{{ data.team2_winrate[-1]['y'] }}%</p>
         </div>
       </div>
@@ -268,13 +268,13 @@
     {% endif %}
 
     {% if data.roundsPlayed > 1 %}
-    <h2 class="title is-size-2">Charts</h2>
+    <h2 class="title is-size-2">{{_('Charts')}}</h2>
 
     <div class="columns">
       <div class="column">
         {% if data.team1_winrate|length > 2 and data.team2_winrate|length > 2 %}
-        <h3 class="title is-size-5">Winrate per team</h3>
-        <h4 class="heading has-text-grey-light">Trailing 30 rounds</h4>
+        <h3 class="title is-size-5">{{_('Winrate per team')}}</h3>
+        <h4 class="heading has-text-grey-light">{{_('Trailing 30 rounds')}}</h4>
         <div class="chart-container">
           <canvas id="winrate-chart" width="100%" height="176"></canvas>
         </div>
@@ -283,8 +283,8 @@
         {% endif %}
 
         {% if data.activity | length > 2 %}
-        <h3 class="title is-size-5">Activity</h3>
-        <h4 class="heading has-text-grey-light">Per week</h4>
+        <h3 class="title is-size-5">{{_('Activity')}}</h3>
+        <h4 class="heading has-text-grey-light">{{_('Per week')}}</h4>
         <div class="chart-container">
           <canvas id="activity-chart" width="100%" height="176"></canvas>
         </div>
@@ -292,7 +292,7 @@
       </div>
       <div class="column is-2">
         {% if data.classes.Rifle|float > 0 %}
-        <h3 class="title is-size-5">Weapons</h3>
+        <h3 class="title is-size-5">{{_('Weapons')}}</h3>
         <div class="chart-container">
           <canvas id="weapons-chart" width="100%" height="200"></canvas>
         </div>
@@ -397,14 +397,14 @@
     type: 'line',
     data: {
       datasets: [{
-        label: 'Hours played',
+        label: '{{_('Hours played')}}',
         data: {{ data.activity | tojson | safe }},
     backgroundColor: 'rgba(153, 102, 255, 0.2)',
     borderColor: 'rgba(153, 102, 255, 1)',
     borderWidth: 2
   },
     {
-      label: 'Server hours',
+      label: '{{_('Server hours')}}',
       data: {{ data.server_activity | tojson | safe }},
   backgroundColor: 'rgba(51, 17, 117, 0.2)',
     borderColor: 'rgba(51, 17, 117, 1)',
@@ -430,7 +430,7 @@
   var classtime = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ["Grenade launcher hours", "Flamethrower hours", "HMG hours", "Shotgun hours", "Rifle hours"],
+      labels: ["Grenade launcher {{_('hours')}}", "Flamethrower {{_('hours')}}", "HMG {{_('hours')}}", "Shotgun {{_('hours')}}", "Rifle {{_('hours')}}"],
       datasets: [{
         label: '# of Votes',
         data: {{ [data.classes.GrenadeLauncher, data.classes.Flamethrower, data.classes.HeavyMachineGun, data.classes.Shotgun, data.classes.Rifle] | safe }},
@@ -465,7 +465,7 @@
   var lifeforms = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ["Gorge hours", "Onos hours", "Fade hours", "Lerk hours", "Skulk hours"],
+      labels: ["Gorge {{_('hours')}}", "Onos {{_('hours')}}", "Fade {{_('hours')}}", "Lerk {{_('hours')}}", "Skulk {{_('hours')}}"],
       datasets: [{
         label: '# of Votes',
         data: {{ [data.classes.Gorge, data.classes.Onos, data.classes.Fade, data.classes.Lerk, data.classes.Skulk] | safe }},

@@ -9,7 +9,7 @@ import requests
 import json
 import os
 
-from flask import render_template, request, redirect, url_for, flash, abort, jsonify, Response
+from flask import render_template, session, request, redirect, url_for, flash, abort, jsonify, Response
 from flask_login import login_user, logout_user, current_user
 from requests.auth import HTTPDigestAuth
 from valve.source import a2s
@@ -17,12 +17,30 @@ from valve.steam.id import SteamID
 from humanize import naturaltime
 from pywebpush import webpush, WebPushException
 
-from app import app, db, models, ns2plus_queries, cache
+from app import app, db, models, ns2plus_queries, cache, babel
 from app.ns2plus_db import Database
 from app.oauth import OAuthSignIn
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
+
+@babel.localeselector
+def get_locale():
+    best_match = request.accept_languages.best_match(
+        app.config['SUPPORTED_LANGUAGES'].keys())
+    try:
+        language = session['language']
+    except KeyError:
+        language = best_match
+    if language is not None:
+        return language
+    return best_match
 
 
 def make_cache_key(*args, **kwargs):
@@ -110,6 +128,12 @@ def get_stats(endpoint, filter, limit, page):
     response['page'] = page
 
     return response
+
+
+@app.route('/language/<language>')
+def set_language(language=None):
+    session['language'] = language
+    return redirect(url_for('index'))
 
 
 @app.route('/')

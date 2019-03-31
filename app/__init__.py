@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, g, request
+from flask_babel import Babel
 from flask_caching import Cache
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -9,10 +10,10 @@ from app.config import Config
 
 app = Flask(__name__)
 
+app.config.from_object(Config)
 minify(app=app)
 
-app.config.from_object(Config)
-
+babel = Babel(app)
 
 db = SQLAlchemy(app)
 humanize = Humanize(app)

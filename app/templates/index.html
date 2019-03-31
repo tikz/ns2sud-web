@@ -2,7 +2,7 @@
 {% set page_title = 'NS2SUD Home' %}
 {% set page_description = 'South America community for Natural Selection 2' %}
 {% extends "master_template.html" %}
-{% block title %}Index{% endblock %}
+{% block title %}{% endblock %}
 {% block head %}
 <meta name="twitter:card" content="summary_large_image">
 <link type="application/json+oembed" href="/oembed.json" />
@@ -16,14 +16,14 @@
           <h1 class="title is-size-4 border-bottom"><span class="icon is-medium">
               <i class="fas fa-history"></i>
             </span>
-            Last matches</h1>
+            {{_('Last matches')}}</h1>
           <table class="table is-fullwidth">
             <thead>
               <tr>
                 <th>ID</th>
-                <th class="is-hidden-mobile">Format</th>
-                <th>Map</th>
-                <th class="is-hidden-mobile">Winner</th>
+                <th class="is-hidden-mobile">{{_('Format')}}</th>
+                <th>{{_('Map')}}</th>
+                <th class="is-hidden-mobile">{{_('Winner')}}</th>
                 <th>Date</th>
               </tr>
             </thead>
@@ -54,29 +54,30 @@
           <nav class="level is-mobile">
             <div class="level-item has-text-centered">
               <div>
-                <p class="heading">Status</p>
-                <p class="title is-size-4"><span class="icon is-small has-text-{% if gameserver.status %}success{% else %}danger{% endif %}">
+                <p class="heading">{{_('Status')}}</p>
+                <p class="title is-size-4"><span
+                    class="icon is-small has-text-{% if gameserver.status %}success{% else %}danger{% endif %}">
                     <i class="fas fa-circle"></i>
                   </span></p>
               </div>
             </div>
             <div class="level-item has-text-centered">
               <div>
-                <p class="heading">Map</p>
+                <p class="heading">{{_('Map')}}</p>
                 <p class="title is-size-4">{% if gameserver.status %}{{ gameserver.map }}{% else %}---{%
                   endif %}</p>
               </div>
             </div>
             <div class="level-item has-text-centered">
               <div>
-                <p class="heading">Slots</p>
+                <p class="heading">{{_('Slots')}}</p>
                 <p class="title is-size-4">{% if gameserver.status %}{{ gameserver.slots }}{% else
                   %}---{% endif %}</p>
               </div>
             </div>
           </nav>
           <hr>
-          <h1 class="is-size-4">Matches</h1>
+          <h1 class="is-size-4">{{_('Matches')}}</h1>
           <div class="chart-container">
             <canvas id="matches-chart" height="242"></canvas>
           </div>
@@ -94,14 +95,14 @@
 {% block prefooter %}
 <div id="rules" class="is-hidden-touch">
   <div id="blackboard">
-    <h1 class="is-size-2">Server rules</h1>
+    <h1 class="is-size-2">{{_('Server rules')}}</h1>
     <ol class="is-size-3">
-      <li>Don't be a dick</li>
-      <li>Don't quit midgame</li>
-      <li>Keep the player count balanced</li>
+      <li>{{_('Don\'t be a dick')}}</li>
+      <li>{{_('Don\'t quit midgame')}}</li>
+      <li>{{_('Keep the player count balanced')}}</li>
     </ol>
   </div>
-  <div id="waifu"></div>
+  <div id="instructor" class="{{ ['mantecoso', 'waifu']| random }}"></div>
   <div id="students"></div>
   <div class="is-clearfix"></div>
 </div>

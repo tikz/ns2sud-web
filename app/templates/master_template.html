@@ -2,7 +2,9 @@
 <html lang="en">
 
 <head>
-    <title>NS2SUD{{ ' - ' + title if title else '' }}</title>
+    <title>NS2 Sudamerica{{ ' - ' + title if title else '' }}</title>
+    <meta name="description" content="{{ page_description }}" />
+
     <link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
@@ -19,8 +21,8 @@
 
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="msapplication-TileColor" content="#6100ff">
@@ -74,13 +76,13 @@
                             <span class="icon is-medium">
                                 <i class="fas fa-home"></i>
                             </span>
-                            Home
+                            {{_('Home')}}
                         </a>
                         <a class="navbar-item" href="/stats#/players/">
                             <span class="icon  is-medium">
                                 <i class="fas fa-chart-bar"></i>
                             </span>
-                            Stats
+                            {{_('Stats')}}
                         </a>
                         <a class="navbar-item" target="_blank" href="http://wonitor.ns2sud.com">
                             <span class="icon  is-medium">
@@ -141,21 +143,21 @@
                             </a>
                             <div class="navbar-dropdown is-boxed">
                                 <a class="navbar-item" href="/user">
-                                    User panel
+                                    {{_('User panel')}}
                                 </a>
                                 {% if current_user.ns2_id %}
                                 <a class="navbar-item" href="/stats/player/{{ current_user.ns2_id }}">
-                                    My stats
+                                    {{_('My stats')}}
                                 </a>
                                 <a class="navbar-item" href="/user/kick">
-                                    Kick myself
+                                    {{_('Kick myself')}}
                                 </a>
                                 {% endif %}
                                 <a class="navbar-item" href="https://discord.gg/Hx68RRd">
-                                    Join our Discord
+                                    {{_('Join our Discord')}}
                                 </a>
                                 <a class="navbar-item" href="/logout">
-                                    Logout
+                                    {{_('Logout')}}
                                 </a>
                             </div>
                         </div>
@@ -176,28 +178,40 @@
                 <nav class="level">
                     <div class="level-left">
                         <div class="level-item">
-                            <p>
-                                Art by <a href="">Mahadon</a>. Web design by <a href="">Tik</a>.</p>
+                            <p>Art by <a href="https://www.deviantart.com/mahadon">Mahadon</a>. Web design by <a
+                                    href="https://github.com/Tikzz">Tik</a>.</p>
                         </div>
                     </div>
                     <div class="level-right">
-                        <nav class="level is-mobile">
-                            <p class="level-item">
-                                <a class="icon is-large colorless is-size-4" target="_blank" href="https://github.com/Tikzz/ns2sud-web">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                            </p>
-                            <p class="level-item">
-                                <a class="icon is-large colorless is-size-4" target="_blank" href="https://steamcommunity.com/groups/NS2SUD">
-                                    <i class="fab fa-steam"></i>
-                                </a>
-                            </p>
-                            <p class="level-item">
-                                <a class="icon is-large colorless is-size-4" target="_blank" href="https://discord.gg/Hx68RRd">
-                                    <i class="fab fa-discord"></i>
-                                </a>
-                            </p>
-                        </nav>
+                        <div>
+                            <nav class="level is-mobile">
+                                <p class="level-item">
+                                    <a class="icon is-large colorless is-size-4" target="_blank"
+                                        href="https://github.com/Tikzz/ns2sud-web">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </p>
+                                <p class="level-item">
+                                    <a class="icon is-large colorless is-size-4" target="_blank"
+                                        href="https://steamcommunity.com/groups/NS2SUD">
+                                        <i class="fab fa-steam"></i>
+                                    </a>
+                                </p>
+                                <p class="level-item">
+                                    <a class="icon is-large colorless is-size-4" target="_blank"
+                                        href="https://discord.gg/Hx68RRd">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                </p>
+                            </nav>
+                        </div>
+                        <p class="has-text-centered">
+                            {% if session["language"] != "es" %}<a href="/language/es">es</a>{% else %}es{% endif %}
+                            |
+                            {% if session["language"] != "pt" %}<a href="/language/pt">pt</a>{% else %}pt{% endif %}
+                            |
+                            {% if session["language"] != "en" %}<a href="/language/en">en</a>{% else %}en{% endif %}
+                        </p>
                     </div>
                 </nav>
             </div>

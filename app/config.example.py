@@ -3,6 +3,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
+    SUPPORTED_LANGUAGES = {'es': 'Spanish',
+                           'en': 'English', 'pt': 'Portuguese'}
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
+
     VAPID_PUBLIC_KEY = ''
     VAPID_PRIVATE_KEY = ''
 

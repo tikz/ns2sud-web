@@ -359,13 +359,21 @@ margin-right: 50px;
   opacity: 0.8;
 }
 
-#waifu {
-position: absolute;
-width: 100%;
-height: 100%;
-background: url(/static/img/waifu.png) no-repeat;
-background-size: cover;
+#instructor {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    
 }
+
+.waifu {
+background: url(/static/img/waifu.png) no-repeat;
+}
+
+.mantecoso {
+  background: url(/static/img/mantecoso.png) no-repeat;
+  }
 
 #students {
 position: absolute;
@@ -439,6 +447,10 @@ background-position: top center;
 
 #hero-player-content {
   z-index: 99;
+}
+
+#language-selector {
+  display: block;
 }
 
 #loading {

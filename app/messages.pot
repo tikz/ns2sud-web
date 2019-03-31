@@ -1,0 +1,189 @@
+# Translations template for PROJECT.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2019-01-05 19:48-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.6.0\n"
+
+#: templates/index.html:19
+msgid "Last matches"
+msgstr ""
+
+#: templates/index.html:24
+msgid "Format"
+msgstr ""
+
+#: templates/index.html:25 templates/index.html:65
+msgid "Map"
+msgstr ""
+
+#: templates/index.html:26
+msgid "Winner"
+msgstr ""
+
+#: templates/index.html:57
+msgid "Status"
+msgstr ""
+
+#: templates/index.html:72
+msgid "Slots"
+msgstr ""
+
+#: templates/index.html:79 templates/stats.html:27
+msgid "Matches"
+msgstr ""
+
+#: templates/index.html:97
+msgid "Server rules"
+msgstr ""
+
+#: templates/index.html:99
+msgid "Don't be a dick"
+msgstr ""
+
+#: templates/index.html:100
+msgid "Don't quit midgame"
+msgstr ""
+
+#: templates/index.html:101
+msgid "Keep the player count balanced"
+msgstr ""
+
+#: templates/master_template.html:77
+msgid "Home"
+msgstr ""
+
+#: templates/master_template.html:83 templates/stats.html:15
+msgid "Stats"
+msgstr ""
+
+#: templates/master_template.html:144
+msgid "User panel"
+msgstr ""
+
+#: templates/master_template.html:148
+msgid "My stats"
+msgstr ""
+
+#: templates/master_template.html:151
+msgid "Kick myself"
+msgstr ""
+
+#: templates/master_template.html:155
+msgid "Join our Discord"
+msgstr ""
+
+#: templates/master_template.html:158
+msgid "Logout"
+msgstr ""
+
+#: templates/player.html:58 templates/player.html:186
+msgid "Rounds Played"
+msgstr ""
+
+#: templates/player.html:126 templates/player.html:253
+msgid "Recent Marine Winrate"
+msgstr ""
+
+#: templates/player.html:134 templates/player.html:261
+msgid "Recent Alien Winrate"
+msgstr ""
+
+#: templates/player.html:271
+msgid "Charts"
+msgstr ""
+
+#: templates/player.html:276
+msgid "Winrate per team"
+msgstr ""
+
+#: templates/player.html:277
+msgid "Trailing 30 rounds"
+msgstr ""
+
+#: templates/player.html:286
+msgid "Activity"
+msgstr ""
+
+#: templates/player.html:287
+msgid "Per week"
+msgstr ""
+
+#: templates/player.html:295
+msgid "Weapons"
+msgstr ""
+
+#: templates/player.html:400
+msgid "Hours played"
+msgstr ""
+
+#: templates/player.html:407
+msgid "Server hours"
+msgstr ""
+
+#: templates/player.html:433 templates/player.html:468
+msgid "hours"
+msgstr ""
+
+#: templates/stats.html:16
+msgid "Kills between players of the last 10 matches."
+msgstr ""
+
+#: templates/stats.html:33
+msgid "Players"
+msgstr ""
+
+#: templates/user.html:19
+msgid "Link your SteamID"
+msgstr ""
+
+#: templates/user.html:21
+msgid "Current features include:"
+msgstr ""
+
+#: templates/user.html:24
+msgid "Add your avatar next to your name, instead of being a cone."
+msgstr ""
+
+#: templates/user.html:25
+msgid "Kick yourself from the server if your game crashed."
+msgstr ""
+
+#: templates/user.html:31
+msgid "Connect to"
+msgstr ""
+
+#: templates/user.html:32
+msgid "and enter the following token in the"
+msgstr ""
+
+#: templates/user.html:41
+msgid "This page should reload automatically."
+msgstr ""
+
+#: templates/user.html:53
+msgid "User Panel"
+msgstr ""
+
+#: templates/user.html:56
+msgid "Push Notifications"
+msgstr ""
+
+#: templates/user.html:57
+msgid ""
+"This enables notifications only in your current browser or\n"
+"        device."
+msgstr ""
+

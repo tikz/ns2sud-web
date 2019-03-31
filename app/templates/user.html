@@ -16,21 +16,20 @@
         <div class="columns">
           <div class="column is-size-5">
 
-            <h1 class="title">Link your SteamID</h1>
+            <h1 class="title">{{_('Link your SteamID')}}</h1>
             <h2 class="subtitle">
-              Current features include:
+              {{_('Current features include:')}}
             </h2>
             <ul>
-              <li>Add your avatar next to your name, instead of being a cone.</li>
-              <li>Kick yourself from the server if your game crashed.</li>
+              <li>{{_('Add your avatar next to your name, instead of being a cone.')}}</li>
+              <li>{{_('Kick yourself from the server if your game crashed.')}}</li>
             </ul>
           </div>
           <div class="column is-5">
             <div class="box has-background-grey has-text-white">
               <div>
-                <h2 class="is-size-5">Connect to <span class="has-text-warning">NS2 Sudamerica 8v8</span> <br> and
-                  enter
-                  the following token in the <span class="is-bold has-text-weight-bold has-text-warning">chat</span>:</h2>
+                <h2 class="is-size-5">{{_('Connect to')}} <span class="has-text-warning">NS2 Sudamerica 8v8</span> <br>
+                  {{_('and enter the following token in the')}} <span class="is-bold has-text-weight-bold has-text-warning">chat</span>:</h2>
               </div>
               <div class="control has-icons-left has-icons-right">
                 <input class="input is-large has-background-grey-dark" value="{{ current_user.token }}" onClick="this.select();"
@@ -39,7 +38,7 @@
                   <i class="fas fa-key"></i>
                 </span>
               </div>
-              <h3 class="is-size-7 has-text-centered">This page should reload automatically.</h3>
+              <h3 class="is-size-7 has-text-centered">{{_('This page should reload automatically.')}}</h3>
             </div>
           </div>
         </div>
@@ -51,12 +50,12 @@
 
 <section class="section">
   <div class="container" id="main">
-    <h1 class="title is-size-1">User Panel</h1>
+    <h1 class="title is-size-1">{{_('User Panel')}}</h1>
     <div class="field">
       <input id="notifications-toggle" type="checkbox" name="notifications-toggle" class="switch">
-      <label for="notifications-toggle">Push Notifications</label>
-      <p class="notifications-desc is-size-7">This enables notifications only in your current browser or
-        device.</p>
+      <label for="notifications-toggle">{{_('Push Notifications')}}</label>
+      <p class="notifications-desc is-size-7">{{_('This enables notifications only in your current browser or
+        device.')}}</p>
     </div>
     <hr>
   </div>
