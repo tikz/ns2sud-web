@@ -10,7 +10,7 @@ local/*
 *notes*
 helper_*.py
 .sass-cache
-static/bulma
+app/static/bulma
 
 *private*
 
