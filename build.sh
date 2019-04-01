@@ -4,6 +4,6 @@ cd app
 ../venv/Scripts/pybabel init -i messages-pt.pot -d translations -l pt
 ../venv/Scripts/pybabel compile -d translations
 cd ..
-./venv/Scripts/pip freeze > requirements.txt
+pip freeze > requirements.txt
 docker build -t tikz/ns2sud-web .
 docker push tikz/ns2sud-web
